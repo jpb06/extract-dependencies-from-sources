@@ -10,16 +10,21 @@ const error = chalk.bold.redBright(
 export const validatePaths = async (
   config: Partial<CliArguments>,
 ): Promise<Array<string>> => {
-  if (!Array.isArray(config.path)) {
+  let paths = config.path as unknown as Array<string>;
+  if (typeof config.path === 'string') {
+    paths = [config.path];
+  }
+
+  if (!Array.isArray(paths)) {
     throw new Error(error);
   }
 
-  for (const path of config.path) {
+  for (const path of paths) {
     const pathExists = await exists(path);
     if (!pathExists) {
       throw new Error(error);
     }
   }
 
-  return config.path;
+  return paths;
 };
