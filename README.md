@@ -15,3 +15,31 @@ Inferring dependencies from the source code of a monorepo app
 ```bash
 yarn add -D extract-dependencies-from-sources
 ```
+
+```bash
+pnpm i -D extract-dependencies-from-sources
+```
+
+### 🔶 Usage
+
+```
+extractDeps --packagejson ./package.json --path codebasePath
+
+Options:
+  --help         Show help                                             [boolean]
+  --version      Show version number                                   [boolean]
+  --packagejson  Root package.json path   [required] [default: "./package.json"]
+  --path         Codebase path                                        [required]
+
+Examples:
+  extractDeps --packagejson ./package.json --path ./apps/back --path
+  ./libs/back
+
+Inferring dependencies from the source code of a monorepo app
+```
+
+For example, running the following command will replace the `dependencies` property of the root `package.json` with the dependencies found in the codebases located in `apps/back` and `libs/back/database`.
+
+```bash
+yarn extractDeps --path apps/back --path libs/back/database
+```
