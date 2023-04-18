@@ -1,0 +1,51 @@
+{
+  "name": "extract-dependencies-from-sources",
+  "description": "Inferring dependencies from the source code of a monorepo app",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "repository": "https://github.com/jpb06/extract-dependencies-from-sources.git",
+  "author": "jpb06 <jp.bois.06@outlook.fr>",
+  "bin": {
+    "extractDeps": "./cli/extract-dependencies/extract-dependencies.cli.js"
+  },
+  "keywords": [],
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "<5",
+    "dotenv-flow": "^3.2.0",
+    "glob": "^10.2.1",
+    "yargs": "^17.7.1"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.6.1",
+    "@commitlint/config-conventional": "^17.6.1",
+    "@types/dotenv-flow": "^3.2.0",
+    "@types/fs-extra": "11.0.1",
+    "@types/node": "^18.15.11",
+    "@types/yargs": "^17.0.24",
+    "@typescript-eslint/eslint-plugin": "^5.59.0",
+    "@typescript-eslint/parser": "^5.59.0",
+    "copyfiles": "^2.4.1",
+    "del-cli": "^5.0.0",
+    "eslint": "^8.38.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jest": "^27.2.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "fs-extra": "^11.1.1",
+    "prettier": "^2.8.7",
+    "readme-package-icons": "^1.1.8",
+    "typescript": "^5.0.4"
+  },
+  "scripts": {
+    "copy-package": "copyfiles package.json ./dist/",
+    "copy-readme": "copyfiles README.md ./dist/",
+    "build": "del-cli ./dist && tsc --project tsconfig.prod.json",
+    "postbuild": "pnpm copy-package && pnpm copy-readme",
+    "lint": "eslint ./src",
+    "type-check": "tsc -p tsconfig.prod.json --noEmit",
+    "precli": "pnpm build",
+    "cli": "node ./dist/cli/extract-dependencies/extract-dependencies.cli.js --packagejson ./_temp/package.json --path _temp/front --path _temp/ng-back",
+    "sync-icons": "pnpm generateReadmeIcons -h 50"
+  }
+}
