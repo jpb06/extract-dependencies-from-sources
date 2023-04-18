@@ -13,7 +13,7 @@ export const updateRootPackageJson = async (
     ...data,
     dependencies: {
       ...dependencies.reduce((acc, dep) => {
-        const [name, version] = dep.split(':');
+        const [name, version] = dep.split(': ');
 
         return {
           ...acc,

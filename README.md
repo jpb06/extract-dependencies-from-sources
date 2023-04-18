@@ -22,7 +22,7 @@ pnpm i -D extract-dependencies-from-sources
 
 ### 🔶 Usage
 
-```
+```bash
 extractDeps --packagejson ./package.json --path codebasePath
 
 Options:
@@ -42,4 +42,19 @@ For example, running the following command will replace the `dependencies` prope
 
 ```bash
 yarn extractDeps --path apps/back --path libs/back/database
+```
+
+You can also use the function directly in your code:
+
+```ts
+import { getCodebasesDependencies } from 'extract-dependencies-from-sources';
+import { readJson } from 'fs-extra';
+
+(async () => {
+  const data = await readJson('./package.json');
+  const deps = await getCodebasesDependencies(data.dependencies, [
+    'apps/front/auth',
+    'lib/front/components',
+  ]);
+})();
 ```
