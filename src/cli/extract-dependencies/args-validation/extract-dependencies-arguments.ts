@@ -2,18 +2,27 @@ import chalk from 'chalk';
 import { hideBin } from 'yargs/helpers';
 import yargs from 'yargs/yargs';
 
+import {
+  ExternalDeps,
+  validateExternalDeps,
+} from './options-validation/validate-external-deps';
 import { validatePaths } from './options-validation/validate-paths-option';
 import {
   PackageJson,
   validateRootPackageJson,
 } from './options-validation/validate-root-package-json';
 
-export type CliArguments = { packagejson: string; path: string };
+export type CliArguments = {
+  packagejson: string;
+  path: string;
+  externaldeps?: string;
+};
 
 export type ExtractDependenciesArguments = {
   packageJsonData: PackageJson;
   packageJsonPath: string;
   paths: Array<string>;
+  externaldeps: ExternalDeps;
 };
 
 export const validateArguments =
@@ -31,14 +40,20 @@ export const validateArguments =
       .describe('packagejson', chalk.cyanBright('Root package.json path'))
       .default('packagejson', './package.json')
       .describe('path', chalk.cyanBright('Codebase path'))
+      .describe(
+        'externaldeps',
+        chalk.cyanBright('Path to external dependencies file (optional)'),
+      )
       .demandOption(['path', 'packagejson']).argv as CliArguments;
 
     const packageJson = await validateRootPackageJson(argv);
     const paths = await validatePaths(argv);
+    const externaldeps = await validateExternalDeps(argv.externaldeps);
 
     return {
       packageJsonData: packageJson.data,
       packageJsonPath: packageJson.path,
       paths,
+      externaldeps,
     };
   };
