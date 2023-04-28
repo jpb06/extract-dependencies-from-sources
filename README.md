@@ -26,10 +26,11 @@ pnpm i -D extract-dependencies-from-sources
 extractDeps --packagejson ./package.json --path codebasePath
 
 Options:
-  --help         Show help                                             [boolean]
-  --version      Show version number                                   [boolean]
-  --packagejson  Root package.json path   [required] [default: "./package.json"]
-  --path         Codebase path                                        [required]
+  --help          Show help                                            [boolean]
+  --version       Show version number                                  [boolean]
+  --packagejson   Root package.json path  [required] [default: "./package.json"]
+  --path          Codebase path                                       [required]
+  --externaldeps  Path to external dependencies file (optional)
 
 Examples:
   extractDeps --packagejson ./package.json --path ./apps/back --path
@@ -57,4 +58,22 @@ import { readJson } from 'fs-extra';
     'lib/front/components',
   ]);
 })();
+```
+
+#### 🧿 Including external dependencies
+
+You can also specify external dependencies to include in the output by providing a path to a yaml file containing a map of dependencies:
+
+> external-deps.yml
+
+```yaml
+externaldeps:
+  - msw: ^1.1.0
+  - eslint: ~8.36.0
+```
+
+You can then use the `--externaldeps` option to include them:
+
+```bash
+yarn extractDeps --path apps/front --externaldeps ./external-deps.yml
 ```
