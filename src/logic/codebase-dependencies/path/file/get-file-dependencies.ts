@@ -1,6 +1,6 @@
 import { readFile } from 'fs-extra';
 
-const depsRegex = new RegExp(/(from)? ['"](.*)['"].*$/, 'gm');
+const depsRegex = new RegExp(/^import.*(from)? ['"](.*)['"].*$/, 'gm');
 
 export const getFileDependencies = async (
   file: string,
@@ -11,6 +11,7 @@ export const getFileDependencies = async (
   const result = [];
   while (null !== (match = depsRegex.exec(input))) {
     const dep = match[2];
+
     if (!dep.startsWith('./') && !dep.startsWith('../')) {
       result.push(dep);
     }

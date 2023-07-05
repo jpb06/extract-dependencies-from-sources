@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 import { exists } from 'fs-extra';
 
-import { CliArguments } from '../extract-dependencies-arguments';
+import { CliArguments } from '../types/cli-arguments.type';
 
 const error = chalk.bold.redBright(
   `Invalid type for 'paths' option: expecting an array of existing paths.\n`,

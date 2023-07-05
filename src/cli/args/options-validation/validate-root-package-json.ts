@@ -1,11 +1,10 @@
 import chalk from 'chalk';
 import { readJson, exists } from 'fs-extra';
 
-import { CliArguments } from '../extract-dependencies-arguments';
+import { PackageJson } from '../../../types/package-json.type';
+import { CliArguments } from '../types/cli-arguments.type';
 
-export type PackageJson = {
-  dependencies: Record<string, string>;
-};
+type ValidateRootPackageJsonInput = Pick<CliArguments, 'packagejson'>;
 
 type RootPackageJsonValidationResult = {
   data: PackageJson;
@@ -14,7 +13,7 @@ type RootPackageJsonValidationResult = {
 
 export const validateRootPackageJson = async ({
   packagejson,
-}: CliArguments): Promise<RootPackageJsonValidationResult> => {
+}: ValidateRootPackageJsonInput): Promise<RootPackageJsonValidationResult> => {
   const packageJsonExists = await exists(packagejson);
   if (!packageJsonExists) {
     throw new Error(
