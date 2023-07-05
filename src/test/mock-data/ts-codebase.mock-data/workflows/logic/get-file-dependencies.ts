@@ -7,8 +7,8 @@ export const getFileDependencies = async (
 ): Promise<Array<string>> => {
   const input = await readFile(file, 'utf8');
 
-  let match = null;
-  const result = [];
+  let match: RegExpExecArray | null = null;
+  const result: string[] = [];
   while (null !== (match = depsRegex.exec(input))) {
     const dep = match[2];
 

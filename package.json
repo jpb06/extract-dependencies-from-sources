@@ -46,7 +46,7 @@
     "build": "del-cli ./dist && tsc --project tsconfig.prod.json",
     "postbuild": "pnpm copy-package && pnpm copy-readme",
     "lint": "eslint ./src",
-    "type-check": "tsc -p tsconfig.prod.json --noEmit",
+    "type-check": "tsc -p tsconfig.json --noEmit",
     "precli": "pnpm build",
     "cli": "node ./dist/cli.js --packagejson ./_temp/package.json --path _temp/front --path _temp/ng-back --externaldeps _temp/external-deps.yml",
     "sync-icons": "pnpm generateReadmeIcons -h 50",
