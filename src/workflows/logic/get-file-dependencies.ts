@@ -1,6 +1,6 @@
 import { readFile } from 'fs-extra';
 
-const depsRegex = new RegExp(/^import.*(from)? ['"](.*)['"].*$/, 'gm');
+const depsRegex = new RegExp(/(from)? ['"](.*)['"].*$/, 'gm');
 
 export const getFileDependencies = async (
   file: string,
