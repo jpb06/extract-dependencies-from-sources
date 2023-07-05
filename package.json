@@ -51,6 +51,7 @@
     "cli": "node ./dist/cli.js --packagejson ./_temp/package.json --path _temp/front --path _temp/ng-back --externaldeps _temp/external-deps.yml",
     "sync-icons": "pnpm generateReadmeIcons -h 50",
     "test": "vitest",
+    "test-ci": "vitest --coverage --run",
     "test-dev": "vitest --coverage",
     "test-coverage": "vitest run --coverage"
   }
