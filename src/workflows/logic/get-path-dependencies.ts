@@ -8,7 +8,7 @@ export const getPathDependencies = async (
   path: string,
   rootPackageJsonDeps: PackageJson['dependencies'],
 ): Promise<Array<string>> => {
-  const tsFiles = await glob(`${path}/**/*.ts`);
+  const tsFiles = await glob(`${path}/**/*.{ts,tsx,js,jsx}`);
 
   const dependenciesNames = (
     await Promise.all(tsFiles.map((f) => getFileDependencies(f)))
