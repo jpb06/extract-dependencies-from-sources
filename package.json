@@ -2,7 +2,7 @@
   "name": "extract-dependencies-from-sources",
   "description": "Inferring dependencies from the source code of a monorepo app",
   "version": "1.0.7",
-  "main": "index.js",
+  "main": "dist/node.js",
   "repository": "https://github.com/jpb06/extract-dependencies-from-sources.git",
   "author": "jpb06 <jp.bois.06@outlook.fr>",
   "bin": {
@@ -14,29 +14,31 @@
     "chalk": "4.1.2",
     "dotenv-flow": "^3.2.0",
     "fs-extra": "^11.1.1",
-    "glob": "^10.2.2",
-    "yaml": "^2.2.2",
+    "glob": "^10.3.1",
+    "yaml": "^2.3.1",
     "yargs": "^17.7.2"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.6.1",
-    "@commitlint/config-conventional": "^17.6.1",
+    "@commitlint/cli": "^17.6.6",
+    "@commitlint/config-conventional": "^17.6.6",
     "@types/dotenv-flow": "^3.2.0",
     "@types/fs-extra": "11.0.1",
-    "@types/node": "^18.16.2",
+    "@types/node": "^20.3.3",
     "@types/yargs": "^17.0.24",
-    "@typescript-eslint/eslint-plugin": "^5.59.1",
-    "@typescript-eslint/parser": "^5.59.1",
+    "@typescript-eslint/eslint-plugin": "^5.61.0",
+    "@typescript-eslint/parser": "^5.61.0",
+    "@vitest/coverage-v8": "^0.32.4",
     "copyfiles": "^2.4.1",
     "del-cli": "^5.0.0",
-    "eslint": "^8.39.0",
+    "eslint": "^8.44.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-jest": "^27.2.1",
+    "eslint-plugin-jest": "^27.2.2",
     "eslint-plugin-prettier": "^4.2.1",
     "prettier": "^2.8.8",
     "readme-package-icons": "^1.1.8",
-    "typescript": "^5.0.4"
+    "typescript": "^5.1.6",
+    "vitest": "^0.32.4"
   },
   "scripts": {
     "copy-package": "copyfiles package.json ./dist/",
@@ -46,7 +48,10 @@
     "lint": "eslint ./src",
     "type-check": "tsc -p tsconfig.prod.json --noEmit",
     "precli": "pnpm build",
-    "cli": "node ./dist/cli/extract-dependencies/extract-dependencies.cli.js --packagejson ./_temp/package.json --path _temp/front --path _temp/ng-back --externaldeps _temp/external-deps.yml",
-    "sync-icons": "pnpm generateReadmeIcons -h 50"
+    "cli": "node ./dist/cli.js --packagejson ./_temp/package.json --path _temp/front --path _temp/ng-back --externaldeps _temp/external-deps.yml",
+    "sync-icons": "pnpm generateReadmeIcons -h 50",
+    "test": "vitest",
+    "test-dev": "vitest --coverage",
+    "test-coverage": "vitest run --coverage"
   }
 }

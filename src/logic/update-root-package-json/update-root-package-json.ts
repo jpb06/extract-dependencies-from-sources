@@ -1,6 +1,6 @@
 import { writeJson } from 'fs-extra';
 
-import { PackageJson } from '../../cli/extract-dependencies/args-validation/options-validation/validate-root-package-json';
+import { PackageJson } from '../../types/package-json.type';
 
 const removeQuotes = (str: string): string => str.replaceAll('"', '');
 

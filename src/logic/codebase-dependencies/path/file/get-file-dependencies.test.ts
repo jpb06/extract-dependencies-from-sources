@@ -1,0 +1,20 @@
+import { beforeAll, describe, expect, it, vi } from 'vitest';
+
+import { tsFileMockData } from '../../../../test/mock-data/ts-file.mock-data';
+import { mockReadFile } from '../../../../test/mocks/mock-read-file';
+
+describe('getFileDependencies function', () => {
+  beforeAll(() => {
+    vi.doMock('fs-extra', () => ({
+      readFile: mockReadFile(tsFileMockData),
+    }));
+  });
+
+  it('should extract non relative dependencies', async () => {
+    const { getFileDependencies } = await import('./get-file-dependencies');
+
+    const result = await getFileDependencies('./cool');
+
+    expect(result).toStrictEqual(['fs-extra', 'next', 'react']);
+  });
+});

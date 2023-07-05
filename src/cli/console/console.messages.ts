@@ -2,7 +2,7 @@
 import chalk from 'chalk';
 
 export const displayDependenciesShrinked = (): void => {
-  console.log(
+  console.info(
     `${chalk.cyanBright(
       'extract-dependencies-from-sources',
     )} ✅ - ${chalk.greenBright(
@@ -24,14 +24,5 @@ export const displayException = (err: unknown): void => {
     `${chalk.cyanBright(
       'extract-dependencies-from-sources',
     )} ❌ - ${chalk.redBright((err as { stack: string }).stack)}`,
-  );
-};
-
-export const displayWarning = (text: string, id?: string): void => {
-  const optionalId = id ? ` ${chalk.magentaBright(id)}:` : '';
-  console.info(
-    `${chalk.cyanBright(
-      'extract-dependencies-from-sources',
-    )} 🚨 -${optionalId} ${chalk.hex('#FFA500')(text)}`,
   );
 };

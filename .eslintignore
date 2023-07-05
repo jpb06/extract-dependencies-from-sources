@@ -3,3 +3,4 @@
 **/coverage
 jest.config.js
 _temp
+src/test/mock-data/ts-codebase.mock-data

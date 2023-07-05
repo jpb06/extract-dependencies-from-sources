@@ -7,16 +7,9 @@ import {
   validateExternalDeps,
 } from './options-validation/validate-external-deps';
 import { validatePaths } from './options-validation/validate-paths-option';
-import {
-  PackageJson,
-  validateRootPackageJson,
-} from './options-validation/validate-root-package-json';
-
-export type CliArguments = {
-  packagejson: string;
-  path: string;
-  externaldeps?: string;
-};
+import { validateRootPackageJson } from './options-validation/validate-root-package-json';
+import { CliArguments } from './types/cli-arguments.type';
+import { PackageJson } from '../../types/package-json.type';
 
 export type ExtractDependenciesArguments = {
   packageJsonData: PackageJson;
