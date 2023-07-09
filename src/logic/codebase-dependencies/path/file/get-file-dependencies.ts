@@ -1,21 +1,39 @@
+import { pipe } from '@effect/data/Function';
+import * as Effect from '@effect/io/Effect';
 import { readFile } from 'fs-extra';
 
 const depsRegex = new RegExp(/^import.*(from)? ['"](.*)['"].*$/, 'gm');
 
-export const getFileDependencies = async (
-  file: string,
-): Promise<Array<string>> => {
-  const input = await readFile(file, 'utf8');
+const getExternalImports = (
+  fileContent: string,
+): Effect.Effect<never, unknown, string[]> =>
+  pipe(
+    Effect.sync(() => depsRegex.exec(fileContent)),
+    Effect.flatMap((firstMatch) =>
+      Effect.loop(firstMatch, {
+        step: () => depsRegex.exec(fileContent),
+        while: (newMatch) => newMatch !== null,
+        body: (match) => {
+          if (!match) {
+            return Effect.succeed(null);
+          }
 
-  let match = null;
-  const result = [];
-  while (null !== (match = depsRegex.exec(input))) {
-    const dep = match[2];
+          const dep = match[2];
+          if (!dep.startsWith('./') && !dep.startsWith('../')) {
+            return Effect.succeed(dep);
+          }
 
-    if (!dep.startsWith('./') && !dep.startsWith('../')) {
-      result.push(dep);
-    }
-  }
+          return Effect.succeed(null);
+        },
+      }),
+    ),
+    Effect.map((imports) => imports.filter((i) => i !== null) as string[]),
+  );
 
-  return result;
-};
+export const getFileDependencies = (
+  path: string,
+): Effect.Effect<never, unknown, string[]> =>
+  pipe(
+    Effect.tryPromise(() => readFile(path, 'utf8')),
+    Effect.flatMap(getExternalImports),
+  );

@@ -1,8 +1,11 @@
 #!/usr/bin/env node
 
+import { pipe } from '@effect/data/Function';
+import * as Effect from '@effect/io/Effect';
+
 import { validateArguments } from './args/extract-args';
 import {
-  displayDependenciesShrinked,
+  displaySuccessEffect,
   displayException,
 } from './console/console.messages';
 import { getCodebasesDependencies } from '../logic/codebase-dependencies/get-codebases-dependencies';
@@ -11,24 +14,27 @@ import { updateRootPackageJson } from '../logic/update-root-package-json/update-
 
 /* istanbul ignore file */
 
-(async (): Promise<void> => {
-  try {
-    const { packageJsonData, packageJsonPath, paths, externaldeps } =
-      await validateArguments();
-    const { dependencies } = await getCodebasesDependencies(
-      packageJsonData.dependencies,
-      paths,
-    );
+(async (): Promise<void> =>
+  Effect.runPromise(
+    pipe(
+      validateArguments,
+      Effect.flatMap(
+        ({ packageJsonData, packageJsonPath, paths, externaldeps }) =>
+          pipe(
+            getCodebasesDependencies(packageJsonData.dependencies, paths),
+            Effect.flatMap((dependencies) =>
+              updateRootPackageJson(packageJsonPath, packageJsonData, [
+                ...formatDependencies(externaldeps),
+                ...dependencies,
+              ]),
+            ),
+            Effect.tap(() => displaySuccessEffect),
+          ),
+      ),
+      Effect.catchAll((err) => {
+        displayException(err);
 
-    await updateRootPackageJson(packageJsonPath, packageJsonData, [
-      ...formatDependencies(externaldeps),
-      ...dependencies,
-    ]);
-
-    displayDependenciesShrinked();
-    process.exit(0);
-  } catch (err) {
-    displayException(err);
-    process.exit(1);
-  }
-})();
+        return Effect.fail(err);
+      }),
+    ),
+  ))();

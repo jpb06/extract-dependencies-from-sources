@@ -1,6 +1,9 @@
-import { describe, it, expect, vi, beforeEach, beforeAll } from 'vitest';
+import { describe, it, expect, vi, afterEach, beforeAll } from 'vitest';
 
-global.console = { error: vi.fn() } as unknown as Console;
+global.console = {
+  error: vi.fn(),
+  info: global.console.info,
+} as unknown as Console;
 
 describe('validateArguments function', () => {
   const validateArgumentsPath = '../../cli/args/extract-args';
@@ -23,23 +26,24 @@ describe('validateArguments function', () => {
     }));
   });
 
-  beforeEach(() => {
+  afterEach(() => {
     vi.clearAllMocks();
   });
 
   it('should throw an error if paths option is invalid', async () => {
-    existsMock.mockResolvedValueOnce(true).mockResolvedValue(false);
+    existsMock.mockResolvedValue(true);
     readJsonMock.mockResolvedValue({});
 
     const { runCommand } = await import('../../test/util/run-command');
-
     expect(runCommand(validateArgumentsPath)).rejects.toThrowError(
       "Invalid type for 'paths' option: expecting an array of existing paths",
     );
   });
 
-  it('should throw an error where root package json could not be found', async () => {
-    existsMock.mockResolvedValue(false);
+  it('should throw an error when root package json could not be found', async () => {
+    existsMock.mockImplementation((path) =>
+      Promise.resolve(path !== './package.json'),
+    );
 
     const { runCommand } = await import('../../test/util/run-command');
 

@@ -1,19 +1,17 @@
+import { pipe } from '@effect/data/Function';
+import * as Effect from '@effect/io/Effect';
+
 import { onlyUnique } from './only-unique/filter-unique';
 import { getPathDependencies } from './path/get-path-dependencies';
 
-export type CodebasesDependenciesResult = {
-  dependencies: Array<string>;
-};
-
-export const getCodebasesDependencies = async (
+export const getCodebasesDependencies = (
   rootPackageJsonDependencies: Record<string, string>,
   paths: Array<string>,
-): Promise<CodebasesDependenciesResult> => {
-  const pathsDependencies = await Promise.all(
-    paths.map((path) => getPathDependencies(path, rootPackageJsonDependencies)),
+): Effect.Effect<never, unknown, Array<string>> =>
+  pipe(
+    paths,
+    Effect.forEach(getPathDependencies(rootPackageJsonDependencies), {
+      concurrency: 4,
+    }),
+    Effect.map((dependencies) => dependencies.flat().filter(onlyUnique)),
   );
-
-  const dependencies = pathsDependencies.filter(onlyUnique).flat();
-
-  return { dependencies };
-};

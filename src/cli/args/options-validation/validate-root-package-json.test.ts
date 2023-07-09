@@ -1,4 +1,7 @@
+import * as Effect from '@effect/io/Effect';
 import { describe, it, expect, vi, beforeAll } from 'vitest';
+
+import { packageJsonMockData } from '../../../test/mock-data/package-json.mock-data';
 
 vi.mock('chalk', () => ({
   default: {
@@ -12,7 +15,7 @@ global.console = { info: vi.fn(), error: vi.fn() } as unknown as Console;
 describe('validateRootPackageJson function', () => {
   const path = './cool';
   const existsMock = vi.fn();
-  const readJsonMock = vi.fn();
+  const readJsonMock = vi.fn().mockResolvedValue(packageJsonMockData);
 
   beforeAll(() => {
     vi.doMock('fs-extra', () => ({
@@ -28,7 +31,9 @@ describe('validateRootPackageJson function', () => {
       './validate-root-package-json'
     );
 
-    expect(validateRootPackageJson({ packagejson: path })).rejects.toThrow();
+    expect(
+      Effect.runPromise(validateRootPackageJson({ packagejson: path })),
+    ).rejects.toThrow();
   });
 
   it('should read the package json file', async () => {
@@ -38,9 +43,11 @@ describe('validateRootPackageJson function', () => {
       './validate-root-package-json'
     );
 
-    const { path: returnedPath } = await validateRootPackageJson({
-      packagejson: path,
-    });
+    const { path: returnedPath } = await Effect.runPromise(
+      validateRootPackageJson({
+        packagejson: path,
+      }),
+    );
 
     expect(readJsonMock).toHaveBeenCalledWith(path);
     expect(returnedPath).toBe(path);

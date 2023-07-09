@@ -1,3 +1,5 @@
+import * as Effect from '@effect/io/Effect';
+
 export const runCommand = async (
   validationFilePath: string,
   ...args: Array<string>
@@ -10,5 +12,7 @@ export const runCommand = async (
 
   const { validateArguments } = await import(validationFilePath);
 
-  return validateArguments();
+  return Effect.runPromise(
+    validateArguments as Effect.Effect<never, never, never>,
+  );
 };

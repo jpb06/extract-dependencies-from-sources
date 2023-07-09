@@ -1,3 +1,4 @@
+import * as Effect from '@effect/io/Effect';
 import { beforeAll, describe, expect, it, vi } from 'vitest';
 
 import { packageJsonMockData } from '../../test/mock-data/package-json.mock-data';
@@ -15,10 +16,13 @@ describe('updateRootPackageJson function', () => {
     const { updateRootPackageJson } = await import(
       './update-root-package-json'
     );
-    await updateRootPackageJson(path, packageJsonMockData, [
-      `"glob": "^10.3.0"`,
-      `"yargs": "^17.7.2"`,
-    ]);
+
+    await Effect.runPromise(
+      updateRootPackageJson(path, packageJsonMockData, [
+        `"glob": "^10.3.0"`,
+        `"yargs": "^17.7.2"`,
+      ]),
+    );
 
     expect(writeJsonMock).toHaveBeenCalledTimes(1);
     expect(writeJsonMock).toHaveBeenCalledWith(
