@@ -1,3 +1,5 @@
+import { pipe } from '@effect/data/Function';
+import * as Effect from '@effect/io/Effect';
 import chalk from 'chalk';
 import { readJson, exists } from 'fs-extra';
 
@@ -11,22 +13,24 @@ type RootPackageJsonValidationResult = {
   path: string;
 };
 
-export const validateRootPackageJson = async ({
+export const validateRootPackageJson = ({
   packagejson,
-}: ValidateRootPackageJsonInput): Promise<RootPackageJsonValidationResult> => {
-  const packageJsonExists = await exists(packagejson);
-  if (!packageJsonExists) {
-    throw new Error(
-      chalk.bold.redBright(
-        `Root package.json could not be found at path ${packagejson}.\n`,
+}: ValidateRootPackageJsonInput): Effect.Effect<
+  never,
+  unknown,
+  RootPackageJsonValidationResult
+> =>
+  pipe(
+    Effect.tryPromise(() => exists(packagejson)),
+    Effect.if({
+      onFalse: Effect.fail(
+        chalk.bold.redBright(
+          `Root package.json could not be found at path ${packagejson}.\n`,
+        ),
       ),
-    );
-  }
-
-  const data = await readJson(packagejson);
-
-  return {
-    data,
-    path: packagejson,
-  };
-};
+      onTrue: pipe(
+        Effect.tryPromise(() => readJson(packagejson)),
+        Effect.map((data) => ({ data, path: packagejson })),
+      ),
+    }),
+  );
