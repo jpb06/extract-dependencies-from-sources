@@ -25,7 +25,7 @@ env:
 rules:
   '@typescript-eslint/await-thenable': error
   '@typescript-eslint/explicit-module-boundary-types': off
-  '@typescript-eslint/explicit-function-return-type': warn
+  '@typescript-eslint/explicit-function-return-type': off
   '@typescript-eslint/explicit-member-accessibility': off
   '@typescript-eslint/indent': off
   '@typescript-eslint/member-delimiter-style': off
