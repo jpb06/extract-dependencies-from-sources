@@ -9,9 +9,7 @@ type ExternalDepsFile = {
   externaldeps: ExternalDeps;
 };
 
-export const readExternalDependencies = (
-  path: string,
-): Effect.Effect<never, unknown, ExternalDeps> =>
+export const readExternalDependencies = (path: string) =>
   pipe(
     Effect.tryPromise(() => readFile(path, { encoding: 'utf8' })),
     Effect.flatMap((data) =>

@@ -4,9 +4,7 @@ import { readFile } from 'fs-extra';
 
 const depsRegex = new RegExp(/^import.*(from)? ['"](.*)['"].*$/, 'gm');
 
-const getExternalImports = (
-  fileContent: string,
-): Effect.Effect<never, unknown, string[]> =>
+const getExternalImports = (fileContent: string) =>
   pipe(
     Effect.sync(() => depsRegex.exec(fileContent)),
     Effect.flatMap((firstMatch) =>
@@ -30,9 +28,7 @@ const getExternalImports = (
     Effect.map((imports) => imports.filter((i) => i !== null) as string[]),
   );
 
-export const getFileDependencies = (
-  path: string,
-): Effect.Effect<never, unknown, string[]> =>
+export const getFileDependencies = (path: string) =>
   pipe(
     Effect.tryPromise(() => readFile(path, 'utf8')),
     Effect.flatMap(getExternalImports),

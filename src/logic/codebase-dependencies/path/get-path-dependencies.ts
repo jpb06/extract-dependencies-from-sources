@@ -7,8 +7,7 @@ import { PackageJson } from '../../../types/package-json.type';
 import { onlyUnique } from '../only-unique/filter-unique';
 
 export const getPathDependencies =
-  (rootPackageJsonDeps: PackageJson['dependencies']) =>
-  (path: string): Effect.Effect<never, unknown, Array<string>> =>
+  (rootPackageJsonDeps: PackageJson['dependencies']) => (path: string) =>
     pipe(
       Effect.tryPromise(() => glob(`${path}/**/*.{ts,tsx}`)),
       Effect.flatMap(

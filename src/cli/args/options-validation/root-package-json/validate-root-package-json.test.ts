@@ -1,7 +1,7 @@
 import * as Effect from '@effect/io/Effect';
 import { describe, it, expect, vi, beforeAll } from 'vitest';
 
-import { packageJsonMockData } from '../../../test/mock-data/package-json.mock-data';
+import { packageJsonMockData } from '../../../../test/mock-data/package-json.mock-data';
 
 vi.mock('chalk', () => ({
   default: {
@@ -27,9 +27,7 @@ describe('validateRootPackageJson function', () => {
   it('should display an error message when package.json could not be found on provided path', async () => {
     existsMock.mockResolvedValue(false);
 
-    const { validateRootPackageJson } = await import(
-      './validate-root-package-json'
-    );
+    const { validateRootPackageJson } = await import('./index');
 
     expect(
       Effect.runPromise(validateRootPackageJson({ packagejson: path })),
@@ -39,9 +37,7 @@ describe('validateRootPackageJson function', () => {
   it('should read the package json file', async () => {
     existsMock.mockResolvedValue(true);
 
-    const { validateRootPackageJson } = await import(
-      './validate-root-package-json'
-    );
+    const { validateRootPackageJson } = await import('./index');
 
     const { path: returnedPath } = await Effect.runPromise(
       validateRootPackageJson({

@@ -10,7 +10,7 @@ export const updateRootPackageJson = (
   path: string,
   data: PackageJson,
   dependencies: Array<string>,
-): Effect.Effect<never, unknown, undefined> =>
+) =>
   pipe(
     Effect.sync(() => ({
       ...data,
@@ -28,5 +28,5 @@ export const updateRootPackageJson = (
     Effect.tap((packageJson) =>
       Effect.tryPromise(() => writeJson(path, packageJson, { spaces: 2 })),
     ),
-    Effect.flatMap(() => Effect.succeed(undefined)),
+    Effect.flatMap(() => Effect.unit),
   );

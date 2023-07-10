@@ -2,11 +2,9 @@ import { pipe } from '@effect/data/Function';
 import * as Effect from '@effect/io/Effect';
 import { exists } from 'fs-extra';
 
-import { failWithInvalidType } from './invalid-type-error';
+import { failAsInvalidType } from './fail-as-invalid-type';
 
-export const ensureAllFilesExist = (
-  paths: string[],
-): Effect.Effect<never, unknown, string[]> =>
+export const ensureAllFilesExist = (paths: string[]) =>
   Effect.forEach(
     paths,
     (path) =>
@@ -15,7 +13,7 @@ export const ensureAllFilesExist = (
         Effect.flatMap((fileExists) =>
           Effect.if(fileExists, {
             onTrue: Effect.succeed(path),
-            onFalse: failWithInvalidType(),
+            onFalse: failAsInvalidType(),
           }),
         ),
       ),

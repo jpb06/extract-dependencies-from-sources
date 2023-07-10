@@ -7,7 +7,7 @@ import { getPathDependencies } from './path/get-path-dependencies';
 export const getCodebasesDependencies = (
   rootPackageJsonDependencies: Record<string, string>,
   paths: Array<string>,
-): Effect.Effect<never, unknown, Array<string>> =>
+) =>
   pipe(
     paths,
     Effect.forEach(getPathDependencies(rootPackageJsonDependencies), {
