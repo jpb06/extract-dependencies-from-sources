@@ -12,22 +12,14 @@ const isRelative = Predicate.or(Str.startsWith('./'), Str.startsWith('../'));
 
 const getExternalImports = (fileContent: string) =>
   pipe(
-    Effect.loop(Option.fromNullable(depsRegex.exec(fileContent)), {
-      while: Option.isSome,
-      body: (match) =>
-        Effect.sync(() =>
-          match.pipe(
-            Option.flatMap(Array.get(2)),
-            Option.filter(Predicate.not(isRelative)),
-          ),
-        ),
-      step: () => Option.fromNullable(depsRegex.exec(fileContent)),
-    }),
-    Effect.map(Array.compact),
+    Array.fromIterable(fileContent.matchAll(depsRegex)),
+    Array.map(Array.get(2)),
+    Array.compact,
+    Array.filter(Predicate.not(isRelative)),
   );
 
 export const getFileDependencies = (path: string) =>
   pipe(
     Effect.tryPromise(() => readFile(path, 'utf8')),
-    Effect.flatMap(getExternalImports),
+    Effect.map(getExternalImports),
   );
