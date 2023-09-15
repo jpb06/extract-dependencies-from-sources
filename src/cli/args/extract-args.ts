@@ -1,4 +1,3 @@
-import { pipe } from '@effect/data/Function';
 import * as Effect from '@effect/io/Effect';
 
 import { buildYargs } from './build-yargs';
@@ -15,22 +14,26 @@ export type ExtractDependenciesArguments = {
   externaldeps: ExternalDeps;
 };
 
-export const validateArguments = pipe(
-  Effect.sync(buildYargs),
-  Effect.flatMap((args) =>
+export const validateArguments = Effect.gen(function* (_) {
+  const args = buildYargs();
+
+  const [packageJson, paths, externaldeps] = yield* _(
     Effect.all(
-      validateRootPackageJson(args),
-      validatePaths(args),
-      validateExternalDeps(args.externaldeps),
+      [
+        validateRootPackageJson(args),
+        validatePaths(args),
+        validateExternalDeps(args.externaldeps),
+      ],
       {
         concurrency: 'unbounded',
       },
     ),
-  ),
-  Effect.map(([packageJson, paths, externaldeps]) => ({
+  );
+
+  return {
     packageJsonData: packageJson.data,
     packageJsonPath: packageJson.path,
     paths,
     externaldeps,
-  })),
-);
+  };
+});

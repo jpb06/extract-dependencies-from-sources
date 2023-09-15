@@ -20,6 +20,7 @@ describe('formatDependencies function', () => {
       '"copyfiles": "^2.4.1"',
       '"del-cli": "^5.0.0"',
       '"eslint": "^8.43.0"',
+      '"@react-pdf/renderer": "^2.0.0-beta.4"',
     ]);
   });
 });

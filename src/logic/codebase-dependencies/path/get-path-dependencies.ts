@@ -1,4 +1,3 @@
-import { pipe } from '@effect/data/Function';
 import * as Effect from '@effect/io/Effect';
 import { glob } from 'glob';
 
@@ -8,21 +7,24 @@ import { onlyUnique } from '../only-unique/filter-unique';
 
 export const getPathDependencies =
   (rootPackageJsonDeps: PackageJson['dependencies']) => (path: string) =>
-    pipe(
-      Effect.tryPromise(() => glob(`${path}/**/*.{ts,tsx}`)),
-      Effect.flatMap(
-        Effect.forEach(getFileDependencies, {
+    Effect.gen(function* (_) {
+      const tsFiles = yield* _(
+        Effect.tryPromise(() => glob(`${path}/**/*.{ts,tsx}`)),
+      );
+
+      const allDependencies = yield* _(
+        Effect.forEach(tsFiles, getFileDependencies, {
           concurrency: 'unbounded',
         }),
-      ),
-      Effect.map((dependencies) => dependencies.flat().filter(onlyUnique)),
-      Effect.map((dependencies) =>
-        Object.entries(rootPackageJsonDeps)
-          .filter(
-            ([name]) =>
-              dependencies.includes(name) ||
-              dependencies.some((d) => d.startsWith(`${name}/`)),
-          )
-          .map(([name, version]) => `"${name}": "${version}"`),
-      ),
-    );
+      );
+
+      const onlyUniqueDependencies = allDependencies.flat().filter(onlyUnique);
+
+      return Object.entries(rootPackageJsonDeps)
+        .filter(
+          ([name]) =>
+            onlyUniqueDependencies.includes(name) ||
+            onlyUniqueDependencies.some((d) => d.startsWith(`${name}/`)),
+        )
+        .map(([name, version]) => `"${name}": "${version}"`);
+    });

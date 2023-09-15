@@ -7,6 +7,15 @@ import {
   CodebasesDependenciesResult,
 } from './workflows/get-codebases-dependencies';
 import { updateRootPackageJson } from './workflows/logic/update-root-package-json';
+import {
+  Image,
+  Page,
+  Text,
+  View,
+  Document,
+  StyleSheet,
+  renderToBuffer,
+} from '@react-pdf/renderer';
       
 export { getCodebasesDependencies, updateRootPackageJson };
       

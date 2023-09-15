@@ -1,4 +1,3 @@
-import { pipe } from '@effect/data/Function';
 import * as Effect from '@effect/io/Effect';
 import { exists } from 'fs-extra';
 
@@ -8,15 +7,14 @@ export const ensureAllFilesExist = (paths: string[]) =>
   Effect.forEach(
     paths,
     (path) =>
-      pipe(
-        Effect.tryPromise(() => exists(path)),
-        Effect.flatMap((fileExists) =>
-          Effect.if(fileExists, {
-            onTrue: Effect.succeed(path),
-            onFalse: failAsInvalidType(),
-          }),
-        ),
-      ),
+      Effect.gen(function* (_) {
+        const fileExists = yield* _(Effect.tryPromise(() => exists(path)));
+        if (fileExists) {
+          return yield* _(Effect.succeed(path));
+        }
+
+        return yield* _(failAsInvalidType());
+      }),
     {
       concurrency: 'unbounded',
     },
