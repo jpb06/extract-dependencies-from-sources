@@ -17,20 +17,22 @@ import { updateRootPackageJson } from '../logic/update-root-package-json/update-
 (async (): Promise<void> =>
   Effect.runPromise(
     pipe(
-      validateArguments,
-      Effect.flatMap(
-        ({ packageJsonData, packageJsonPath, paths, externaldeps }) =>
-          pipe(
-            getCodebasesDependencies(packageJsonData.dependencies, paths),
-            Effect.flatMap((dependencies) =>
-              updateRootPackageJson(packageJsonPath, packageJsonData, [
-                ...formatDependencies(externaldeps),
-                ...dependencies,
-              ]),
-            ),
-            Effect.tap(() => displaySuccessEffect),
-          ),
-      ),
+      Effect.gen(function* (_) {
+        const { packageJsonData, packageJsonPath, paths, externaldeps } =
+          yield* _(validateArguments);
+
+        const dependencies = yield* _(
+          getCodebasesDependencies(packageJsonData.dependencies, paths),
+        );
+
+        yield* _(
+          updateRootPackageJson(packageJsonPath, packageJsonData, [
+            ...formatDependencies(externaldeps),
+            ...dependencies,
+          ]),
+        );
+        yield* _(displaySuccessEffect);
+      }),
       Effect.catchAll((err) => {
         displayException(err);
 

@@ -1,4 +1,3 @@
-import { pipe } from '@effect/data/Function';
 import * as Effect from '@effect/io/Effect';
 import { writeJson } from 'fs-extra';
 
@@ -11,8 +10,8 @@ export const updateRootPackageJson = (
   data: PackageJson,
   dependencies: Array<string>,
 ) =>
-  pipe(
-    Effect.sync(() => ({
+  Effect.gen(function* (_) {
+    const packageJson = {
       ...data,
       dependencies: {
         ...dependencies.reduce((acc, dep) => {
@@ -24,9 +23,9 @@ export const updateRootPackageJson = (
           };
         }, {}),
       },
-    })),
-    Effect.tap((packageJson) =>
+    };
+
+    yield* _(
       Effect.tryPromise(() => writeJson(path, packageJson, { spaces: 2 })),
-    ),
-    Effect.flatMap(() => Effect.unit),
-  );
+    );
+  });

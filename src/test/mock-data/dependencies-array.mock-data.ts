@@ -35,4 +35,7 @@ export const dependenciesArray = [
   {
     eslint: '^8.43.0',
   },
+  {
+    '@react-pdf/renderer': '^2.0.0-beta.4',
+  },
 ] as Array<Record<string, string>>;

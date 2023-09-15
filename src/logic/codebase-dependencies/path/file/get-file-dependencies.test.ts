@@ -19,6 +19,11 @@ describe('getFileDependencies function', () => {
 
     const result = await Effect.runPromise(getFileDependencies('./cool'));
 
-    expect(result).toStrictEqual(['fs-extra', 'next', 'react']);
+    expect(result).toStrictEqual([
+      'fs-extra',
+      'next',
+      'react',
+      '@react-pdf/renderer',
+    ]);
   });
 });
