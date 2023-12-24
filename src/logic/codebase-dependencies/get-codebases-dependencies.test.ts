@@ -1,4 +1,4 @@
-import * as Effect from '@effect/io/Effect';
+import { Effect } from 'effect';
 import { describe, expect, it } from 'vitest';
 
 import { getCodebasesDependencies } from './get-codebases-dependencies';

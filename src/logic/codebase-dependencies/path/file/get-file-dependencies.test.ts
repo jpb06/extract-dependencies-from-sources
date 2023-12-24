@@ -1,4 +1,4 @@
-import * as Effect from '@effect/io/Effect';
+import { Effect } from 'effect';
 import { beforeAll, describe, expect, it, vi } from 'vitest';
 
 import { tsFileMockData } from '../../../../test/mock-data/ts-file.mock-data';

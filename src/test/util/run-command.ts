@@ -1,4 +1,4 @@
-import * as Effect from '@effect/io/Effect';
+import { Effect } from 'effect';
 
 export const runCommand = async (
   validationFilePath: string,

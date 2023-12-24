@@ -1,4 +1,4 @@
-import * as Effect from '@effect/io/Effect';
+import { Effect } from 'effect';
 import { describe, it, expect, vi, beforeAll } from 'vitest';
 
 import { packageJsonMockData } from '../../../../test/mock-data/package-json.mock-data';

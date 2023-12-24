@@ -1,5 +1,5 @@
-import * as Effect from '@effect/io/Effect';
 import chalk from 'chalk';
+import { Effect } from 'effect';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 
 import { displaySuccessEffect, displayException } from './console.messages';

@@ -1,5 +1,4 @@
-import { pipe } from '@effect/data/Function';
-import * as Effect from '@effect/io/Effect';
+import { Effect, pipe } from 'effect';
 
 import { ensureAllFilesExist } from './logic/ensure-all-files-exist';
 import { ensureArray } from './logic/ensure-array';

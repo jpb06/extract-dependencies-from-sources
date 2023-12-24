@@ -1,4 +1,4 @@
-import * as Effect from '@effect/io/Effect';
+import { Effect } from 'effect';
 
 import { ExternalDeps } from './logic/read-external-dependencies';
 import { readFromFile } from './logic/read-from-file';

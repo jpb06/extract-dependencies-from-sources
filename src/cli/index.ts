@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
-import { pipe } from '@effect/data/Function';
-import * as Effect from '@effect/io/Effect';
+import { pipe, Effect } from 'effect';
 
 import { validateArguments } from './args/extract-args';
 import {

@@ -1,4 +1,4 @@
-import * as Effect from '@effect/io/Effect';
+import { Effect } from 'effect';
 import { exists } from 'fs-extra';
 
 import { failAsInvalidType } from './fail-as-invalid-type';

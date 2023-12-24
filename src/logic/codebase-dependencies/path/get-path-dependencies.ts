@@ -1,4 +1,4 @@
-import * as Effect from '@effect/io/Effect';
+import { Effect } from 'effect';
 import { glob } from 'glob';
 
 import { getFileDependencies } from './file/get-file-dependencies';

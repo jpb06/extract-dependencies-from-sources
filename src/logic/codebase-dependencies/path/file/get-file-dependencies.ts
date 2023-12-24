@@ -1,20 +1,19 @@
-import { pipe } from '@effect/data/Function';
-import * as Predicate from '@effect/data/Predicate';
-import * as Array from '@effect/data/ReadonlyArray';
-import * as Str from '@effect/data/String';
-import * as Effect from '@effect/io/Effect';
+import { Effect, ReadonlyArray, String, Predicate, pipe } from 'effect';
 import { readFile } from 'fs-extra';
 
 const depsRegex = new RegExp(/(from)? ['"](.*)['"](;?)$/, 'gm');
 
-const isRelative = Predicate.or(Str.startsWith('./'), Str.startsWith('../'));
+const isRelative = Predicate.or(
+  String.startsWith('./'),
+  String.startsWith('../'),
+);
 
 const getExternalImports = (fileContent: string) =>
   pipe(
-    Array.fromIterable(fileContent.matchAll(depsRegex)),
-    Array.map(Array.get(2)),
-    Array.compact,
-    Array.filter(Predicate.not(isRelative)),
+    ReadonlyArray.fromIterable(fileContent.matchAll(depsRegex)),
+    ReadonlyArray.map(ReadonlyArray.get(2)),
+    ReadonlyArray.getSomes,
+    ReadonlyArray.filter(Predicate.not(isRelative)),
   );
 
 export const getFileDependencies = (path: string) =>

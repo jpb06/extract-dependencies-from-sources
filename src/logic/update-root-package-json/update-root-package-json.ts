@@ -1,4 +1,4 @@
-import * as Effect from '@effect/io/Effect';
+import { Effect } from 'effect';
 import { writeJson } from 'fs-extra';
 
 import { PackageJson } from '../../types/package-json.type';

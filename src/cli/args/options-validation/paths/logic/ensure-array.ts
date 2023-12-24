@@ -1,6 +1,4 @@
-import { pipe } from '@effect/data/Function';
-import * as Effect from '@effect/io/Effect';
-import * as Match from '@effect/match';
+import { Effect, Match, pipe } from 'effect';
 
 import { failAsInvalidType } from './fail-as-invalid-type';
 
