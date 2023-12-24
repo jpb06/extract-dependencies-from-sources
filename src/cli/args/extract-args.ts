@@ -1,4 +1,4 @@
-import * as Effect from '@effect/io/Effect';
+import { Effect } from 'effect';
 
 import { buildYargs } from './build-yargs';
 import { validateExternalDeps } from './options-validation/external-dependencies';

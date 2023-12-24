@@ -1,4 +1,4 @@
-import * as Effect from '@effect/io/Effect';
+import { Effect } from 'effect';
 
 import { getCodebasesDependencies as getCodebasesDependenciesEffect } from './logic/codebase-dependencies/get-codebases-dependencies';
 import { updateRootPackageJson } from './logic/update-root-package-json/update-root-package-json';

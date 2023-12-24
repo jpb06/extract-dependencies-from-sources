@@ -1,5 +1,5 @@
-import * as Effect from '@effect/io/Effect';
 import chalk from 'chalk';
+import { Effect } from 'effect';
 
 export const failAsNotFound = (path: string) =>
   Effect.fail(

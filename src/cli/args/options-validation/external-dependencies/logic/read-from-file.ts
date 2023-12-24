@@ -1,5 +1,4 @@
-import { pipe } from '@effect/data/Function';
-import * as Effect from '@effect/io/Effect';
+import { Effect, pipe } from 'effect';
 import { pathExists } from 'fs-extra';
 
 import { failAsFileNotFound } from './fail-as-file-not-found';

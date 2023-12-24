@@ -1,4 +1,4 @@
-import * as Effect from '@effect/io/Effect';
+import { Effect } from 'effect';
 import { readFile } from 'fs-extra';
 import yaml from 'yaml';
 

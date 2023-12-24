@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
-import * as Effect from '@effect/io/Effect';
 import chalk from 'chalk';
+import { Effect } from 'effect';
 
 export const displaySuccessEffect = Effect.sync(() => {
   console.info(

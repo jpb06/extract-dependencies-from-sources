@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import * as Effect from '@effect/io/Effect';
+import { Effect } from 'effect';
 
 export type Success<T extends Effect.Effect<any, any, any>> = [T] extends [
   Effect.Effect<infer _R, infer _E, infer _A>,

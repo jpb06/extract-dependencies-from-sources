@@ -1,5 +1,4 @@
-import { pipe } from '@effect/data/Function';
-import * as Effect from '@effect/io/Effect';
+import { Effect, pipe } from 'effect';
 import { exists } from 'fs-extra';
 
 import { failAsNotFound } from './logic/fail-as-not-found';
