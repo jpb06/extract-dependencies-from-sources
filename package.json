@@ -3,10 +3,13 @@
   "description": "Inferring dependencies from the source code of a monorepo app",
   "version": "1.0.16",
   "main": "node.js",
-  "repository": "https://github.com/jpb06/extract-dependencies-from-sources.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jpb06/extract-dependencies-from-sources.git"
+  },
   "author": "jpb06 <jp.bois.06@outlook.fr>",
   "bin": {
-    "extractDeps": "./cli/index.js"
+    "extractDeps": "cli/index.js"
   },
   "engines": {
     "node": "20.x"
