@@ -2,7 +2,7 @@
   "name": "extract-dependencies-from-sources",
   "description": "Inferring dependencies from the source code of a monorepo app",
   "version": "1.0.16",
-  "main": "dist/node.js",
+  "main": "node.js",
   "repository": "https://github.com/jpb06/extract-dependencies-from-sources.git",
   "author": "jpb06 <jp.bois.06@outlook.fr>",
   "bin": {
