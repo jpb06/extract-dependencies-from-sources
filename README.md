@@ -1,5 +1,21 @@
 # extract-dependencies-from-sources
 
+[![Open in Visual Studio Code](https://img.shields.io/static/v1?logo=visualstudiocode&label=&message=Open%20in%20Visual%20Studio%20Code&labelColor=2c2c32&color=007acc&logoColor=007acc)](https://github.dev/jpb06/extract-dependencies-from-sources)
+![npm bundle size](https://img.shields.io/bundlephobia/min/extract-dependencies-from-sources)
+![Github workflow](https://img.shields.io/github/actions/workflow/status/jpb06/extract-dependencies-from-sources/tests-scan.yml?branch=main&logo=github-actions&label=last%20workflow)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=jpb06_extract-dependencies-from-sources&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=jpb06_extract-dependencies-from-sources)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=jpb06_extract-dependencies-from-sources&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=jpb06_extract-dependencies-from-sources)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=jpb06_extract-dependencies-from-sources&metric=security_rating)](https://sonarcloud.io/dashboard?id=jpb06_extract-dependencies-from-sources)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=jpb06_extract-dependencies-from-sources&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=jpb06_extract-dependencies-from-sources)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=jpb06_extract-dependencies-from-sources&metric=coverage)](https://sonarcloud.io/dashboard?id=jpb06_extract-dependencies-from-sources)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=jpb06_extract-dependencies-from-sources&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=jpb06_extract-dependencies-from-sources)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=jpb06_extract-dependencies-from-sources&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=jpb06_extract-dependencies-from-sources)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=jpb06_extract-dependencies-from-sources&metric=code_smells)](https://sonarcloud.io/dashboard?id=jpb06_extract-dependencies-from-sources)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=jpb06_extract-dependencies-from-sources&metric=bugs)](https://sonarcloud.io/summary/new_code?id=jpb06_extract-dependencies-from-sources)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=jpb06_extract-dependencies-from-sources&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=jpb06_extract-dependencies-from-sources)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=jpb06_extract-dependencies-from-sources&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=jpb06_extract-dependencies-from-sources)
+![Last commit](https://img.shields.io/github/last-commit/jpb06/extract-dependencies-from-sources?logo=git)
+
 Inferring dependencies from the source code of a monorepo app
 
 <!-- readme-package-icons start -->
