@@ -15,7 +15,7 @@ module.exports = {
   overrides: [
     // Typescript
     {
-      files: ['**/*.ts'],
+      files: ['**/*.ts', "**/*.mts"],
       parser: '@typescript-eslint/parser',
       plugins: ['@stylistic/js', 'prettier', '@typescript-eslint', 'import'],
       extends: [
