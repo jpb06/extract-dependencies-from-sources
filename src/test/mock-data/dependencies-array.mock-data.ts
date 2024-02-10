@@ -38,4 +38,4 @@ export const dependenciesArray = [
   {
     '@react-pdf/renderer': '^2.0.0-beta.4',
   },
-] as Array<Record<string, string>>;
+] as Record<string, string>[];

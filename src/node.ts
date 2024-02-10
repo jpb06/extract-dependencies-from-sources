@@ -10,7 +10,7 @@ type CodebasesDependenciesResult = FnSuccess<
 
 const getCodebasesDependencies = (
   rootPackageJsonDependencies: Record<string, string>,
-  paths: Array<string>,
+  paths: string[],
 ): Promise<CodebasesDependenciesResult> =>
   Effect.runPromise(
     getCodebasesDependenciesEffect(rootPackageJsonDependencies, paths),

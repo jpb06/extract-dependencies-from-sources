@@ -8,7 +8,7 @@ const removeQuotes = (str: string): string => str.replaceAll('"', '');
 export const updateRootPackageJson = (
   path: string,
   data: PackageJson,
-  dependencies: Array<string>,
+  dependencies: string[],
 ) =>
   Effect.gen(function* (_) {
     const packageJson = {

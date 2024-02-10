@@ -1,8 +1,9 @@
 import { Effect } from 'effect';
 import { describe, expect, it } from 'vitest';
 
-import { getPathDependencies } from './get-path-dependencies';
 import { tsCodebasePath } from '../../../test/mock-data/ts-codebase-path';
+
+import { getPathDependencies } from './get-path-dependencies';
 
 describe('getPathDependencies function', () => {
   it('should extract external dependencies from a codebase', async () => {

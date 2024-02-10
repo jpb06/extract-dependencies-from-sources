@@ -5,7 +5,7 @@ import { getPathDependencies } from './path/get-path-dependencies';
 
 export const getCodebasesDependencies = (
   rootPackageJsonDependencies: Record<string, string>,
-  paths: Array<string>,
+  paths: string[],
 ) =>
   pipe(
     paths,
