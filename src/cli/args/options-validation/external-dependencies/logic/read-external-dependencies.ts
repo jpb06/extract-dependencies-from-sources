@@ -2,11 +2,11 @@ import { Effect } from 'effect';
 import { readFile } from 'fs-extra';
 import yaml from 'yaml';
 
-export type ExternalDeps = Array<Record<string, string>>;
+export type ExternalDeps = Record<string, string>[];
 
-type ExternalDepsFile = {
+interface ExternalDepsFile {
   externaldeps: ExternalDeps;
-};
+}
 
 export const readExternalDependencies = (path: string) =>
   Effect.gen(function* (_) {

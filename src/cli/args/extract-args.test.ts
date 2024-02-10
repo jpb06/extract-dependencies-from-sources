@@ -35,7 +35,7 @@ describe('validateArguments function', () => {
     readJsonMock.mockResolvedValue({});
 
     const { runCommand } = await import('../../test/util/run-command');
-    expect(runCommand(validateArgumentsPath)).rejects.toThrowError(
+    await expect(runCommand(validateArgumentsPath)).rejects.toThrowError(
       "Invalid type for 'paths' option: expecting an array of existing paths",
     );
   });
@@ -47,7 +47,7 @@ describe('validateArguments function', () => {
 
     const { runCommand } = await import('../../test/util/run-command');
 
-    expect(
+    await expect(
       runCommand(
         validateArgumentsPath,
         '--path',
@@ -101,7 +101,7 @@ describe('validateArguments function', () => {
 
     const { runCommand } = await import('../../test/util/run-command');
 
-    expect(
+    await expect(
       runCommand(validateArgumentsPath, '--path', '../cli'),
     ).rejects.toThrowError(
       "Invalid type for 'paths' option: expecting an array of existing paths",
@@ -114,7 +114,7 @@ describe('validateArguments function', () => {
 
     const { runCommand } = await import('../../test/util/run-command');
 
-    expect(
+    await expect(
       runCommand(
         validateArgumentsPath,
         '--path',

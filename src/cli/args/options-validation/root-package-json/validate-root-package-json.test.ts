@@ -29,7 +29,7 @@ describe('validateRootPackageJson function', () => {
 
     const { validateRootPackageJson } = await import('./index');
 
-    expect(
+    await expect(
       Effect.runPromise(validateRootPackageJson({ packagejson: path })),
     ).rejects.toThrow();
   });

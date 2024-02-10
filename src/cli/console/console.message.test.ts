@@ -28,7 +28,7 @@ describe('console messages function', () => {
     vi.clearAllMocks();
   });
 
-  describe('displaySuccessEffect function', async () => {
+  describe('displaySuccessEffect function', () => {
     it('should call console.info', () => {
       Effect.runSync(displaySuccessEffect);
 

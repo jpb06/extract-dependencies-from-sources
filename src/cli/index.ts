@@ -2,14 +2,15 @@
 
 import { pipe, Effect } from 'effect';
 
+import { getCodebasesDependencies } from '../logic/codebase-dependencies/get-codebases-dependencies';
+import { formatDependencies } from '../logic/format-dependencies/format-dependencies';
+import { updateRootPackageJson } from '../logic/update-root-package-json/update-root-package-json';
+
 import { validateArguments } from './args/extract-args';
 import {
   displaySuccessEffect,
   displayException,
 } from './console/console.messages';
-import { getCodebasesDependencies } from '../logic/codebase-dependencies/get-codebases-dependencies';
-import { formatDependencies } from '../logic/format-dependencies/format-dependencies';
-import { updateRootPackageJson } from '../logic/update-root-package-json/update-root-package-json';
 
 /* istanbul ignore file */
 

@@ -1,9 +1,10 @@
 import { Effect, pipe } from 'effect';
 import { exists } from 'fs-extra';
 
+import { CliArguments } from '../../types/cli-arguments.type';
+
 import { failAsNotFound } from './logic/fail-as-not-found';
 import { readPackageJsonFile } from './logic/read-package-json-file';
-import { CliArguments } from '../../types/cli-arguments.type';
 
 type ValidateRootPackageJsonInput = Pick<CliArguments, 'packagejson'>;
 

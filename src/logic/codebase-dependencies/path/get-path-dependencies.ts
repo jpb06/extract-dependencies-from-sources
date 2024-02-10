@@ -1,9 +1,10 @@
 import { Effect } from 'effect';
 import { glob } from 'glob';
 
-import { getFileDependencies } from './file/get-file-dependencies';
 import { PackageJson } from '../../../types/package-json.type';
 import { onlyUnique } from '../only-unique/filter-unique';
+
+import { getFileDependencies } from './file/get-file-dependencies';
 
 export const getPathDependencies =
   (rootPackageJsonDeps: PackageJson['dependencies']) => (path: string) =>
