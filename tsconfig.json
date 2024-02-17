@@ -14,8 +14,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "outDir": "./dist",
-    "declaration": true,
-    "jsx": "react"
+    "declaration": true
   },
   "include": ["./src", "./vite.config.mts"],
   "exclude": ["node_modules", "dist", "_temp", "src/test/mock-data/ts-codebase.mock-data"]
