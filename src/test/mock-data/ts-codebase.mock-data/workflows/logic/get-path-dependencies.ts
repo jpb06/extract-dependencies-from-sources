@@ -6,7 +6,7 @@ import { getFileDependencies } from './get-file-dependencies';
 export const getPathDependencies = async (
   path: string,
   rootPackageJsonDeps: unknown,
-): Promise<Array<string>> => {
+): Promise<string[]> => {
   const tsFiles = await glob(`${path}/**/*.{ts,tsx,js,jsx}`);
 
   const dependenciesNames = (
