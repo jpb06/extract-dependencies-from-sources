@@ -1,5 +1,6 @@
-import { Effect, ReadonlyArray, String, Predicate, pipe } from 'effect';
-import { readFile } from 'fs-extra';
+import { Effect, String, Predicate, pipe, Array } from 'effect';
+
+import { readFile } from '../../../../effects/fsExtra.effects';
 
 const depsRegex = new RegExp(/(from)? ['"](.*)['"](;?)$/, 'gm');
 
@@ -10,14 +11,15 @@ const isRelative = Predicate.or(
 
 const getExternalImports = (fileContent: string) =>
   pipe(
-    ReadonlyArray.fromIterable(fileContent.matchAll(depsRegex)),
-    ReadonlyArray.map(ReadonlyArray.get(2)),
-    ReadonlyArray.getSomes,
-    ReadonlyArray.filter(Predicate.not(isRelative)),
+    Array.fromIterable(fileContent.matchAll(depsRegex)),
+    Array.map(Array.get(2)),
+    Array.getSomes,
+    Array.filter(Predicate.not(isRelative)),
   );
 
 export const getFileDependencies = (path: string) =>
   pipe(
-    Effect.tryPromise(() => readFile(path, 'utf8')),
+    readFile(path),
     Effect.map(getExternalImports),
+    Effect.withSpan('getFileDependencies', { attributes: { path } }),
   );

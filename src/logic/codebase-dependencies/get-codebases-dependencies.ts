@@ -13,4 +13,7 @@ export const getCodebasesDependencies = (
       concurrency: 4,
     }),
     Effect.map((dependencies) => dependencies.flat().filter(onlyUnique)),
+    Effect.withSpan('getCodebasesDependencies', {
+      attributes: { rootPackageJsonDependencies, paths },
+    }),
   );

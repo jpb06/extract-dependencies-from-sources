@@ -1,14 +1,14 @@
-import { Effect } from 'effect';
-import { beforeAll, describe, expect, it, vi } from 'vitest';
+import { runPromise } from 'effect-errors';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { packageJsonMockData } from '../../test/mock-data/package-json.mock-data';
+import { mockFsExtra } from '../../test/mocks/fs-extra.mock';
 
 describe('updateRootPackageJson function', () => {
-  const writeJsonMock = vi.fn().mockResolvedValue(undefined);
+  const { writeJson } = mockFsExtra();
+
   beforeAll(() => {
-    vi.doMock('fs-extra', () => ({
-      writeJson: writeJsonMock,
-    }));
+    writeJson.mockResolvedValue(undefined);
   });
 
   it('should overwrite dependencies in target package json', async () => {
@@ -17,15 +17,15 @@ describe('updateRootPackageJson function', () => {
       './update-root-package-json'
     );
 
-    await Effect.runPromise(
+    await runPromise(
       updateRootPackageJson(path, packageJsonMockData, [
         `"glob": "^10.3.0"`,
         `"yargs": "^17.7.2"`,
       ]),
     );
 
-    expect(writeJsonMock).toHaveBeenCalledTimes(1);
-    expect(writeJsonMock).toHaveBeenCalledWith(
+    expect(writeJson).toHaveBeenCalledTimes(1);
+    expect(writeJson).toHaveBeenCalledWith(
       path,
       {
         ...packageJsonMockData,
@@ -34,7 +34,7 @@ describe('updateRootPackageJson function', () => {
           yargs: '^17.7.2',
         },
       },
-      { spaces: 2 },
+      { encoding: 'utf8', spaces: 2 },
     );
   });
 });

@@ -2,6 +2,7 @@ import { Effect } from 'effect';
 import { describe, it, expect, vi, beforeAll } from 'vitest';
 
 import { packageJsonMockData } from '../../../../test/mock-data/package-json.mock-data';
+import { mockFsExtra } from '../../../../test/mocks/fs-extra.mock';
 
 vi.mock('chalk', () => ({
   default: {
@@ -14,18 +15,15 @@ global.console = { info: vi.fn(), error: vi.fn() } as unknown as Console;
 
 describe('validateRootPackageJson function', () => {
   const path = './cool';
-  const existsMock = vi.fn();
-  const readJsonMock = vi.fn().mockResolvedValue(packageJsonMockData);
+
+  const { exists, readJson } = mockFsExtra();
 
   beforeAll(() => {
-    vi.doMock('fs-extra', () => ({
-      exists: existsMock,
-      readJson: readJsonMock,
-    }));
+    readJson.mockResolvedValue(vi.fn().mockResolvedValue(packageJsonMockData));
   });
 
   it('should display an error message when package.json could not be found on provided path', async () => {
-    existsMock.mockResolvedValue(false);
+    exists.mockResolvedValue(false as never);
 
     const { validateRootPackageJson } = await import('./index');
 
@@ -35,7 +33,7 @@ describe('validateRootPackageJson function', () => {
   });
 
   it('should read the package json file', async () => {
-    existsMock.mockResolvedValue(true);
+    exists.mockResolvedValue(true as never);
 
     const { validateRootPackageJson } = await import('./index');
 
@@ -45,7 +43,7 @@ describe('validateRootPackageJson function', () => {
       }),
     );
 
-    expect(readJsonMock).toHaveBeenCalledWith(path);
+    expect(readJson).toHaveBeenCalledWith(path);
     expect(returnedPath).toBe(path);
   });
 });

@@ -10,4 +10,5 @@ export const validatePaths = (config: Partial<CliArguments>) =>
     Effect.sync(() => config.path),
     Effect.flatMap(ensureArray),
     Effect.flatMap(ensureAllFilesExist),
+    Effect.withSpan('validatePaths', { attributes: { config } }),
   );

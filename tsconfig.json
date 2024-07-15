@@ -1,21 +1,25 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "CommonJS",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "downlevelIteration": true,
-    "allowJs": false,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
+    "target": "ES2023",
     "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
+    "module": "commonjs",
     "outDir": "./dist",
-    "declaration": true
+    "rootDir": "./src",
+    "declaration": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "esModuleInterop": true,
+    "allowJs": false,
+    "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmitOnError": true,
+    "removeComments": true,
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true
   },
-  "include": ["./src", "./vite.config.mts"],
-  "exclude": ["node_modules", "dist", "_temp", "src/test/mock-data/ts-codebase.mock-data"]
+  "include": ["./src"],
+  "exclude": ["node_modules", "dist", "_temp"]
 }

@@ -1,29 +1,24 @@
 import { describe, it, expect, vi, afterEach, beforeAll } from 'vitest';
 
-global.console = {
-  error: vi.fn(),
-  info: global.console.info,
-} as unknown as Console;
+import { mockConsole } from '../../test/mocks/console.mock';
+import { mockFsExtra } from '../../test/mocks/fs-extra.mock';
 
 describe('validateArguments function', () => {
   const validateArgumentsPath = '../../cli/args/extract-args';
 
-  const existsMock = vi.fn();
-  const pathExistsMock = vi.fn();
-  const readJsonMock = vi.fn();
-  const readFileMock = vi.fn();
+  const { exists, pathExists, readFile, readJson } = mockFsExtra();
+
+  mockConsole({
+    error: vi.fn(),
+  });
 
   beforeAll(() => {
     vi.spyOn(process, 'exit')
       // eslint-disable-next-line @typescript-eslint/no-empty-function
-      .mockImplementation((() => {}) as (code?: number | undefined) => never);
-
-    vi.doMock('fs-extra', () => ({
-      exists: existsMock,
-      pathExists: pathExistsMock,
-      readJson: readJsonMock,
-      readFile: readFileMock,
-    }));
+      .mockImplementation((() => {}) as (
+        this: never,
+        code?: string | number | null | undefined,
+      ) => never);
   });
 
   afterEach(() => {
@@ -31,8 +26,8 @@ describe('validateArguments function', () => {
   });
 
   it('should throw an error if paths option is invalid', async () => {
-    existsMock.mockResolvedValue(true);
-    readJsonMock.mockResolvedValue({});
+    exists.mockResolvedValue(true as never);
+    readJson.mockResolvedValue({});
 
     const { runCommand } = await import('../../test/util/run-command');
     await expect(runCommand(validateArgumentsPath)).rejects.toThrowError(
@@ -41,7 +36,7 @@ describe('validateArguments function', () => {
   });
 
   it('should throw an error when root package json could not be found', async () => {
-    existsMock.mockImplementation((path) =>
+    exists.mockImplementation((path) =>
       Promise.resolve(path !== './package.json'),
     );
 
@@ -61,7 +56,7 @@ describe('validateArguments function', () => {
   });
 
   it('should return paths', async () => {
-    existsMock.mockResolvedValue(true);
+    exists.mockResolvedValue(true as never);
 
     const { runCommand } = await import('../../test/util/run-command');
 
@@ -82,7 +77,7 @@ describe('validateArguments function', () => {
   });
 
   it('should return one path', async () => {
-    existsMock.mockResolvedValue(true);
+    exists.mockResolvedValue(true as never);
 
     const { runCommand } = await import('../../test/util/run-command');
 
@@ -97,7 +92,10 @@ describe('validateArguments function', () => {
   });
 
   it('should throw an error when some path is invalid', async () => {
-    existsMock.mockResolvedValueOnce(true).mockResolvedValueOnce(false);
+    exists
+      .mockResolvedValueOnce(true as never)
+      .mockResolvedValueOnce(false as never);
+    readJson.mockResolvedValueOnce({});
 
     const { runCommand } = await import('../../test/util/run-command');
 
@@ -109,8 +107,9 @@ describe('validateArguments function', () => {
   });
 
   it('should throw an error if externaldeps path is invalid', async () => {
-    existsMock.mockResolvedValue(true);
-    pathExistsMock.mockResolvedValue(false);
+    exists.mockResolvedValue(true as never);
+    readJson.mockResolvedValueOnce({});
+    pathExists.mockResolvedValue(false as never);
 
     const { runCommand } = await import('../../test/util/run-command');
 
@@ -128,12 +127,14 @@ describe('validateArguments function', () => {
   });
 
   it('should use the externalDeps option', async () => {
-    existsMock.mockResolvedValue(true);
-    pathExistsMock.mockResolvedValue(true);
-    readFileMock.mockResolvedValue(`externaldeps:
+    exists.mockResolvedValue(true as never);
+    pathExists.mockResolvedValue(true as never);
+    readFile.mockResolvedValue(
+      `externaldeps:
     - msw: ^1.1.0
     - eslint: ~8.36.0
-  `);
+  ` as never,
+    );
 
     const { runCommand } = await import('../../test/util/run-command');
 

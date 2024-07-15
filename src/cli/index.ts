@@ -17,26 +17,27 @@ import {
 (async (): Promise<void> =>
   Effect.runPromise(
     pipe(
-      Effect.gen(function* (_) {
+      Effect.gen(function* () {
         const { packageJsonData, packageJsonPath, paths, externaldeps } =
-          yield* _(validateArguments);
+          yield* validateArguments;
 
-        const dependencies = yield* _(
-          getCodebasesDependencies(packageJsonData.dependencies, paths),
+        const dependencies = yield* getCodebasesDependencies(
+          packageJsonData.dependencies,
+          paths,
         );
 
-        yield* _(
-          updateRootPackageJson(packageJsonPath, packageJsonData, [
-            ...formatDependencies(externaldeps),
-            ...dependencies,
-          ]),
-        );
-        yield* _(displaySuccessEffect);
+        yield* updateRootPackageJson(packageJsonPath, packageJsonData, [
+          ...formatDependencies(externaldeps),
+          ...dependencies,
+        ]);
+
+        yield* displaySuccessEffect;
       }),
       Effect.catchAll((err) => {
         displayException(err);
 
         return Effect.fail(err);
       }),
+      Effect.withSpan('extract-dependencies-from-sources cli'),
     ),
   ))();

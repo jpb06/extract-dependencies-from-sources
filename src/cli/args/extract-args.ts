@@ -1,4 +1,4 @@
-import { Effect } from 'effect';
+import { Effect, pipe } from 'effect';
 
 import { PackageJson } from '../../types/package-json.type';
 
@@ -15,11 +15,11 @@ export interface ExtractDependenciesArguments {
   externaldeps: ExternalDeps;
 }
 
-export const validateArguments = Effect.gen(function* (_) {
-  const args = buildYargs();
+export const validateArguments = pipe(
+  Effect.gen(function* () {
+    const args = buildYargs();
 
-  const [packageJson, paths, externaldeps] = yield* _(
-    Effect.all(
+    const [packageJson, paths, externaldeps] = yield* Effect.all(
       [
         validateRootPackageJson(args),
         validatePaths(args),
@@ -28,13 +28,14 @@ export const validateArguments = Effect.gen(function* (_) {
       {
         concurrency: 'unbounded',
       },
-    ),
-  );
+    );
 
-  return {
-    packageJsonData: packageJson.data,
-    packageJsonPath: packageJson.path,
-    paths,
-    externaldeps,
-  };
-});
+    return {
+      packageJsonData: packageJson.data,
+      packageJsonPath: packageJson.path,
+      paths,
+      externaldeps,
+    };
+  }),
+  Effect.withSpan('validateArguments'),
+);

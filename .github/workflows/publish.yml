@@ -17,21 +17,19 @@ jobs:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v4
 
-      - name: 📦 Setup pnpm
-        uses: pnpm/action-setup@v3
-        with:
-          version: latest
+      - name: 📦 Setup bun
+        uses: oven-sh/setup-bun@v1
 
       - name: ⎔ Setup node
         uses: actions/setup-node@v4
         with:
           node-version-file: '.node-version'
           registry-url: 'https://registry.npmjs.org'
-          cache: 'pnpm'
+          # cache: 'bun'
           cache-dependency-path: ./package.json
 
       - name: 📥 Install deps
-        run: pnpm install --frozen-lockfile
+        run: bun install --frozen-lockfile
 
       - name: ✏️ Bump package version
         id: bumping-version
@@ -45,7 +43,7 @@ jobs:
           commit-user-email: jpb.06@outlook.com
 
       - name: ⚙️ Building package
-        run: pnpm build
+        run: bun run build
 
       - name: 🚀 Publish package
         if: steps.bumping-version.outputs.bump-performed == 'true'

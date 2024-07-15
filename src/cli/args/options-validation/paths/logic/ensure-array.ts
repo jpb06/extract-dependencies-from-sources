@@ -11,4 +11,5 @@ export const ensureArray = (value: string | string[] | undefined) =>
       Match.when(Match.string, (str) => Effect.succeed([str])),
       Match.orElse(failAsInvalidType),
     ),
+    Effect.withSpan('ensureArray', { attributes: { value } }),
   );
