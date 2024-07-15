@@ -89,14 +89,14 @@ module.exports = {
     {
       files: ['**/*.test.ts', '**/*.spec.ts'],
       plugins: ['eslint-plugin-vitest'],
-      extends: ['plugin:vitest/recommended'],
+      extends: ['plugin:vitest/legacy-recommended'],
     },
 
     // Markdown
     {
       files: ['**/*.md'],
       plugins: ['markdown'],
-      extends: ['plugin:markdown/recommended', 'prettier'],
+      extends: ['plugin:markdown/recommended-legacy', 'prettier'],
     },
 
     // Node

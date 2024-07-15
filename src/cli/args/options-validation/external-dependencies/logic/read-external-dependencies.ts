@@ -1,6 +1,7 @@
-import { Effect } from 'effect';
-import { readFile } from 'fs-extra';
+import { Effect, pipe } from 'effect';
 import yaml from 'yaml';
+
+import { readFile } from '../../../../../effects/fsExtra.effects';
 
 export type ExternalDeps = Record<string, string>[];
 
@@ -9,12 +10,13 @@ interface ExternalDepsFile {
 }
 
 export const readExternalDependencies = (path: string) =>
-  Effect.gen(function* (_) {
-    const data = yield* _(
-      Effect.tryPromise(() => readFile(path, { encoding: 'utf8' })),
-    );
+  pipe(
+    Effect.gen(function* () {
+      const data = yield* readFile(path);
 
-    const parsed = yaml.parse(data) as Partial<ExternalDepsFile>;
+      const parsed = yaml.parse(data) as Partial<ExternalDepsFile>;
 
-    return parsed?.externaldeps ?? [];
-  });
+      return parsed?.externaldeps ?? [];
+    }),
+    Effect.withSpan('readExternalDependencies', { attributes: { path } }),
+  );

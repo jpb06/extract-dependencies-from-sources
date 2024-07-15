@@ -12,7 +12,5 @@ export const runCommand = async (
 
   const { validateArguments } = await import(validationFilePath);
 
-  return Effect.runPromise(
-    validateArguments as Effect.Effect<never, never, never>,
-  );
+  return Effect.runPromise(validateArguments);
 };

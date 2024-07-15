@@ -1,21 +1,25 @@
-import { Effect } from 'effect';
-import { exists } from 'fs-extra';
+import { Effect, pipe } from 'effect';
+
+import { exists } from '../../../../../effects/fsExtra.effects';
 
 import { failAsInvalidType } from './fail-as-invalid-type';
 
 export const ensureAllFilesExist = (paths: string[]) =>
-  Effect.forEach(
-    paths,
-    (path) =>
-      Effect.gen(function* (_) {
-        const fileExists = yield* _(Effect.tryPromise(() => exists(path)));
-        if (fileExists) {
-          return yield* _(Effect.succeed(path));
-        }
+  pipe(
+    Effect.forEach(
+      paths,
+      (path) =>
+        Effect.gen(function* () {
+          const fileExists = yield* exists(path);
+          if (fileExists) {
+            return yield* Effect.succeed(path);
+          }
 
-        return yield* _(failAsInvalidType());
-      }),
-    {
-      concurrency: 'unbounded',
-    },
+          return yield* failAsInvalidType();
+        }),
+      {
+        concurrency: 'unbounded',
+      },
+    ),
+    Effect.withSpan('ensureAllFilesExist', { attributes: { paths } }),
   );
