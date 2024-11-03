@@ -1,9 +1,11 @@
 name: ⚡ Publish
 
 on:
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows: ['⚡ Integration checks']
+    branches: [main]
+    types:
+      - completed
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
