@@ -1,8 +1,8 @@
 import { Effect, pipe } from 'effect';
 
-import { exists } from '../../../../../effects/fsExtra.effects';
+import { exists } from '@effects/fs-extra.effects.js';
 
-import { failAsInvalidType } from './fail-as-invalid-type';
+import { failAsInvalidType } from './fail-as-invalid-type.js';
 
 export const ensureAllFilesExist = (paths: string[]) =>
   pipe(

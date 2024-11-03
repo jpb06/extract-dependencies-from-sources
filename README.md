@@ -20,7 +20,7 @@ Inferring dependencies from the source code of a monorepo app
 
 <!-- readme-package-icons start -->
 
-<p align="left"><a href="https://docs.github.com/en/actions" target="_blank"><img height="50" src="https://raw.githubusercontent.com/jpb06/jpb06/master/icons/GithubActions-Dark.svg" /></a>&nbsp;<a href="https://www.typescriptlang.org/docs/" target="_blank"><img height="50" src="https://raw.githubusercontent.com/jpb06/jpb06/master/icons/TypeScript.svg" /></a>&nbsp;<a href="https://nodejs.org/en/docs/" target="_blank"><img height="50" src="https://raw.githubusercontent.com/jpb06/jpb06/master/icons/NodeJS-Dark.svg" /></a>&nbsp;<a href="https://bun.sh/docs" target="_blank"><img height="50" src="https://raw.githubusercontent.com/jpb06/jpb06/master/icons/Bun-Dark.svg" /></a>&nbsp;<a href="https://github.com/conventional-changelog" target="_blank"><img height="50" src="https://raw.githubusercontent.com/jpb06/jpb06/master/icons/CommitLint.Dark.svg" /></a>&nbsp;<a href="https://github.com/motdotla/dotenv#readme" target="_blank"><img height="50" src="https://raw.githubusercontent.com/jpb06/jpb06/master/icons/Dotenv-Dark.svg" /></a>&nbsp;<a href="https://eslint.org/docs/latest/" target="_blank"><img height="50" src="https://raw.githubusercontent.com/jpb06/jpb06/master/icons/Eslint-Dark.svg" /></a>&nbsp;<a href="https://prettier.io/docs/en/index.html" target="_blank"><img height="50" src="https://raw.githubusercontent.com/jpb06/jpb06/master/icons/Prettier-Dark.svg" /></a>&nbsp;<a href="https://vitest.dev/guide/" target="_blank"><img height="50" src="https://raw.githubusercontent.com/jpb06/jpb06/master/icons/Vitest-Dark.svg" /></a>&nbsp;<a href="https://www.effect.website/docs/quickstart" target="_blank"><img height="50" src="https://raw.githubusercontent.com/jpb06/jpb06/master/icons/Effect-Dark.svg" /></a></p>
+<p align="left"><a href="https://docs.github.com/en/actions" target="_blank"><img height="50" src="https://raw.githubusercontent.com/jpb06/jpb06/master/icons/GithubActions-Dark.svg" /></a>&nbsp;<a href="https://www.typescriptlang.org/docs/" target="_blank"><img height="50" src="https://raw.githubusercontent.com/jpb06/jpb06/master/icons/TypeScript.svg" /></a>&nbsp;<a href="https://nodejs.org/en/docs/" target="_blank"><img height="50" src="https://raw.githubusercontent.com/jpb06/jpb06/master/icons/NodeJS-Dark.svg" /></a>&nbsp;<a href="https://bun.sh/docs" target="_blank"><img height="50" src="https://raw.githubusercontent.com/jpb06/jpb06/master/icons/Bun-Dark.svg" /></a>&nbsp;<a href="https://biomejs.dev/guides/getting-started/" target="_blank"><img height="50" src="https://raw.githubusercontent.com/jpb06/jpb06/master/icons/Biome-Dark.svg" /></a>&nbsp;<a href="https://github.com/conventional-changelog" target="_blank"><img height="50" src="https://raw.githubusercontent.com/jpb06/jpb06/master/icons/CommitLint.Dark.svg" /></a>&nbsp;<a href="https://github.com/motdotla/dotenv#readme" target="_blank"><img height="50" src="https://raw.githubusercontent.com/jpb06/jpb06/master/icons/Dotenv-Dark.svg" /></a>&nbsp;<a href="https://vitest.dev/guide/" target="_blank"><img height="50" src="https://raw.githubusercontent.com/jpb06/jpb06/master/icons/Vitest-Dark.svg" /></a>&nbsp;<a href="https://www.effect.website/docs/quickstart" target="_blank"><img height="50" src="https://raw.githubusercontent.com/jpb06/jpb06/master/icons/Effect-Dark.svg" /></a></p>
 
 <!-- readme-package-icons end -->
 
@@ -37,6 +37,8 @@ pnpm i -D extract-dependencies-from-sources
 ```
 
 ### 🔶 Usage
+
+#### 🧿 cjs
 
 ```bash
 extractDeps --packagejson ./package.json --path codebasePath
@@ -61,22 +63,41 @@ For example, running the following command will replace the `dependencies` prope
 yarn extractDeps --path apps/back --path libs/back/database
 ```
 
+#### 🧿 esm
+
+```bash
+extractDepsEsm --packagejson ./package.json --path codebasePath
+
+Options:
+  --help          Show help                                            [boolean]
+  --version       Show version number                                  [boolean]
+  --packagejson   Root package.json path  [required] [default: "./package.json"]
+  --path          Codebase path                                       [required]
+  --externaldeps  Path to external dependencies file (optional)
+
+Examples:
+  extractDeps --packagejson ./package.json --path ./apps/back --path
+  ./libs/back
+
+Inferring dependencies from the source code of a monorepo app
+```
+
+#### 🧿 node
+
 You can also use the function directly in your code:
 
 ```ts
 import { getCodebasesDependencies } from 'extract-dependencies-from-sources';
 import { readJson } from 'fs-extra';
 
-(async () => {
-  const data = await readJson('./package.json');
-  const deps = await getCodebasesDependencies(data.dependencies, [
-    'apps/front/auth',
-    'lib/front/components',
-  ]);
-})();
+const data = await readJson('./package.json');
+const deps = await getCodebasesDependencies(data.dependencies, [
+  'apps/front/auth',
+  'lib/front/components',
+]);
 ```
 
-#### 🧿 Including external dependencies
+### 🔶 Including external dependencies
 
 You can also specify external dependencies to include in the output by providing a path to a yaml file containing a map of dependencies:
 

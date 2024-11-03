@@ -1,7 +1,7 @@
 import { Effect, pipe } from 'effect';
 import yaml from 'yaml';
 
-import { readFile } from '../../../../../effects/fsExtra.effects';
+import { readFile } from '@effects/fs-extra.effects.js';
 
 export type ExternalDeps = Record<string, string>[];
 

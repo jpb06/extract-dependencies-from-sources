@@ -1,7 +1,7 @@
 import { Effect, pipe } from 'effect';
 
-import { writeJson } from '../../effects/fsExtra.effects';
-import { PackageJson } from '../../types/package-json.type';
+import { writeJson } from '@effects/fs-extra.effects.js';
+import type { PackageJson } from '@types';
 
 const removeQuotes = (str: string): string => str.replaceAll('"', '');
 

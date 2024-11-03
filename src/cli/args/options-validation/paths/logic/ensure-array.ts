@@ -1,6 +1,6 @@
 import { Effect, Match, pipe } from 'effect';
 
-import { failAsInvalidType } from './fail-as-invalid-type';
+import { failAsInvalidType } from './fail-as-invalid-type.js';
 
 export const ensureArray = (value: string | string[] | undefined) =>
   pipe(

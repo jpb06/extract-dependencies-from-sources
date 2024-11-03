@@ -1,52 +1,62 @@
-import chalk from 'chalk';
 import { Effect } from 'effect';
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { displaySuccessEffect, displayException } from './console.messages';
+import { mockConsole, mockPicoColors } from '@tests/mocks';
 
-vi.mock('chalk', () => ({
-  default: {
-    cyanBright: vi.fn(),
-    greenBright: vi.fn(),
-    redBright: vi.fn(),
-    whiteBright: vi.fn(),
-    yellowBright: vi.fn(),
-    underline: {
-      cyanBright: vi.fn(),
-    },
-    bold: {
-      redBright: vi.fn(),
-    },
-  },
-}));
-global.console = { info: vi.fn(), error: vi.fn() } as unknown as Console;
+// vi.mock('picocolors', () => ({
+//   default: {
+//     cyanBright: vi.fn(),
+//     greenBright: vi.fn(),
+//     redBright: vi.fn(),
+//     whiteBright: vi.fn(),
+//     yellowBright: vi.fn(),
+//     underline: {
+//       cyanBright: vi.fn(),
+//     },
+//     bold: {
+//       redBright: vi.fn(),
+//     },
+//   },
+// }));
+//global.console = { info: vi.fn(), error: vi.fn() } as unknown as Console;
 
-describe('console messages function', () => {
+describe('console messages function', async () => {
   const packageName = 'extract-dependencies-from-sources';
 
-  beforeEach(async () => {
+  await mockConsole({
+    info: vi.fn(),
+    error: vi.fn(),
+  });
+  const colors = mockPicoColors();
+
+  beforeEach(() => {
     vi.clearAllMocks();
   });
 
   describe('displaySuccessEffect function', () => {
-    it('should call console.info', () => {
+    it('should call console.info', async () => {
+      const { displaySuccessEffect } = await import('./console.messages.js');
+
       Effect.runSync(displaySuccessEffect);
 
-      // eslint-disable-next-line no-console
       expect(console.info).toHaveBeenCalledTimes(1);
     });
 
-    it('should display the package name in cyan', () => {
+    it('should display the package name in cyan', async () => {
+      const { displaySuccessEffect } = await import('./console.messages.js');
+
       Effect.runSync(displaySuccessEffect);
 
-      expect(chalk.cyanBright).toHaveBeenCalledWith(packageName);
+      expect(colors.cyanBright).toHaveBeenCalledWith(packageName);
     });
 
-    it('should display a success message in green with the number of icons added', () => {
+    it('should display a success message in green with the number of icons added', async () => {
+      const { displaySuccessEffect } = await import('./console.messages.js');
+
       Effect.runSync(displaySuccessEffect);
 
-      expect(chalk.greenBright).toHaveBeenCalledTimes(1);
-      expect(chalk.greenBright).toHaveBeenCalledWith(
+      expect(colors.greenBright).toHaveBeenCalledTimes(1);
+      expect(colors.greenBright).toHaveBeenCalledWith(
         'Dependencies shrinked - root package.json updated',
       );
     });
@@ -59,24 +69,29 @@ describe('console messages function', () => {
       stack: 'error stack',
     };
 
-    it('should call console.error', () => {
+    it('should call console.error', async () => {
+      const { displayException } = await import('./console.messages.js');
+
       displayException(error);
 
-      // eslint-disable-next-line no-console
       expect(console.error).toHaveBeenCalledTimes(1);
     });
 
-    it('should display the package name in cyan', () => {
+    it('should display the package name in cyan', async () => {
+      const { displayException } = await import('./console.messages.js');
+
       displayException(error);
 
-      expect(chalk.cyanBright).toHaveBeenCalledWith(packageName);
+      expect(colors.cyanBright).toHaveBeenCalledWith(packageName);
     });
 
-    it('should display a success message in green with the number of icons added', () => {
+    it('should display a success message in green with the number of icons added', async () => {
+      const { displayException } = await import('./console.messages.js');
+
       displayException(error);
 
-      expect(chalk.redBright).toHaveBeenCalledTimes(1);
-      expect(chalk.redBright).toHaveBeenCalledWith(error.stack);
+      expect(colors.redBright).toHaveBeenCalledTimes(1);
+      expect(colors.redBright).toHaveBeenCalledWith(error.stack);
     });
   });
 });

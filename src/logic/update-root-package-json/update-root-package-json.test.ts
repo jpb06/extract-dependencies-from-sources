@@ -1,8 +1,8 @@
 import { runPromise } from 'effect-errors';
 import { beforeAll, describe, expect, it } from 'vitest';
 
-import { packageJsonMockData } from '../../test/mock-data/package-json.mock-data';
-import { mockFsExtra } from '../../test/mocks/fs-extra.mock';
+import { packageJsonMockData } from '@tests/mock-data';
+import { mockFsExtra } from '@tests/mocks';
 
 describe('updateRootPackageJson function', () => {
   const { writeJson } = mockFsExtra();
@@ -14,7 +14,7 @@ describe('updateRootPackageJson function', () => {
   it('should overwrite dependencies in target package json', async () => {
     const path = './cool';
     const { updateRootPackageJson } = await import(
-      './update-root-package-json'
+      './update-root-package-json.js'
     );
 
     await runPromise(

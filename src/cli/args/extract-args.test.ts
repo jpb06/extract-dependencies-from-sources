@@ -1,7 +1,6 @@
-import { describe, it, expect, vi, afterEach, beforeAll } from 'vitest';
+import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
 
-import { mockConsole } from '../../test/mocks/console.mock';
-import { mockFsExtra } from '../../test/mocks/fs-extra.mock';
+import { mockConsole, mockFsExtra } from '@tests/mocks';
 
 describe('validateArguments function', () => {
   const validateArgumentsPath = '../../cli/args/extract-args';
@@ -13,12 +12,11 @@ describe('validateArguments function', () => {
   });
 
   beforeAll(() => {
-    vi.spyOn(process, 'exit')
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      .mockImplementation((() => {}) as (
-        this: never,
-        code?: string | number | null | undefined,
-      ) => never);
+    // biome-ignore lint/suspicious/noEmptyBlockStatements: <explanation>
+    vi.spyOn(process, 'exit').mockImplementation((() => {}) as (
+      this: never,
+      code?: string | number | null | undefined,
+    ) => never);
   });
 
   afterEach(() => {
@@ -29,7 +27,7 @@ describe('validateArguments function', () => {
     exists.mockResolvedValue(true as never);
     readJson.mockResolvedValue({});
 
-    const { runCommand } = await import('../../test/util/run-command');
+    const { runCommand } = await import('../../test/util/run-command.js');
     await expect(runCommand(validateArgumentsPath)).rejects.toThrowError(
       "Invalid type for 'paths' option: expecting an array of existing paths",
     );
@@ -40,7 +38,7 @@ describe('validateArguments function', () => {
       Promise.resolve(path !== './package.json'),
     );
 
-    const { runCommand } = await import('../../test/util/run-command');
+    const { runCommand } = await import('../../test/util/run-command.js');
 
     await expect(
       runCommand(
@@ -58,7 +56,7 @@ describe('validateArguments function', () => {
   it('should return paths', async () => {
     exists.mockResolvedValue(true as never);
 
-    const { runCommand } = await import('../../test/util/run-command');
+    const { runCommand } = await import('../../test/util/run-command.js');
 
     const result = await runCommand(
       validateArgumentsPath,
@@ -79,7 +77,7 @@ describe('validateArguments function', () => {
   it('should return one path', async () => {
     exists.mockResolvedValue(true as never);
 
-    const { runCommand } = await import('../../test/util/run-command');
+    const { runCommand } = await import('../../test/util/run-command.js');
 
     const result = await runCommand(validateArgumentsPath, '--path', '../cli');
 
@@ -97,7 +95,7 @@ describe('validateArguments function', () => {
       .mockResolvedValueOnce(false as never);
     readJson.mockResolvedValueOnce({});
 
-    const { runCommand } = await import('../../test/util/run-command');
+    const { runCommand } = await import('../../test/util/run-command.js');
 
     await expect(
       runCommand(validateArgumentsPath, '--path', '../cli'),
@@ -111,7 +109,7 @@ describe('validateArguments function', () => {
     readJson.mockResolvedValueOnce({});
     pathExists.mockResolvedValue(false as never);
 
-    const { runCommand } = await import('../../test/util/run-command');
+    const { runCommand } = await import('../../test/util/run-command.js');
 
     await expect(
       runCommand(
@@ -136,7 +134,7 @@ describe('validateArguments function', () => {
   ` as never,
     );
 
-    const { runCommand } = await import('../../test/util/run-command');
+    const { runCommand } = await import('../../test/util/run-command.js');
 
     const result = await runCommand(
       validateArgumentsPath,

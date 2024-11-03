@@ -7,10 +7,12 @@ export const getFileDependencies = async (file: string): Promise<string[]> => {
 
   let match: RegExpExecArray | null = null;
   const result: string[] = [];
+  // biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
   while (null !== (match = depsRegex.exec(input))) {
     const dep = match[2];
 
-    if (!dep.startsWith('./') && !dep.startsWith('../')) {
+    const isPath = dep.startsWith('./') || dep.startsWith('../');
+    if (isPath) {
       result.push(dep);
     }
   }

@@ -1,12 +1,11 @@
-/* eslint-disable no-console */
-import chalk from 'chalk';
 import { Effect } from 'effect';
+import colors from 'picocolors';
 
 export const displaySuccessEffect = Effect.sync(() => {
   console.info(
-    `${chalk.cyanBright(
+    `${colors.cyanBright(
       'extract-dependencies-from-sources',
-    )} ✅ - ${chalk.greenBright(
+    )} ✅ - ${colors.greenBright(
       'Dependencies shrinked - root package.json updated',
     )}`,
   );
@@ -14,8 +13,8 @@ export const displaySuccessEffect = Effect.sync(() => {
 
 export const displayException = (err: unknown): void => {
   console.error(
-    `${chalk.cyanBright(
+    `${colors.cyanBright(
       'extract-dependencies-from-sources',
-    )} ❌ - ${chalk.redBright((err as { stack: string }).stack)}`,
+    )} ❌ - ${colors.redBright((err as { stack: string }).stack)}`,
   );
 };

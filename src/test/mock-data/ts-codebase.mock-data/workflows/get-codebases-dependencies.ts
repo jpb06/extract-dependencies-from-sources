@@ -1,5 +1,5 @@
-import { onlyUnique } from './logic/filter-unique';
-import { getPathDependencies } from './logic/get-path-dependencies';
+import { onlyUnique } from './logic/filter-unique.js';
+import { getPathDependencies } from './logic/get-path-dependencies.js';
 
 export interface CodebasesDependenciesResult {
   dependencies: string[];

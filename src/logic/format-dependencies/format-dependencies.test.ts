@@ -1,8 +1,8 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
-import { dependenciesArray } from '../../test/mock-data/dependencies-array.mock-data';
+import { dependenciesArray } from '@tests/mock-data';
 
-import { formatDependencies } from './format-dependencies';
+import { formatDependencies } from './format-dependencies.js';
 
 describe('formatDependencies function', () => {
   it('should format entries from an array of records', () => {

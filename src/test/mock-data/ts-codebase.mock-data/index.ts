@@ -1,7 +1,7 @@
 import {
+  type CodebasesDependenciesResult,
   getCodebasesDependencies,
-  CodebasesDependenciesResult,
-} from './workflows/get-codebases-dependencies';
+} from './workflows/get-codebases-dependencies.js';
 
 export { getCodebasesDependencies };
 

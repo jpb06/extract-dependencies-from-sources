@@ -1,7 +1,7 @@
 import { Effect, pipe } from 'effect';
 
-import { ExternalDeps } from './logic/read-external-dependencies';
-import { readFromFile } from './logic/read-from-file';
+import type { ExternalDeps } from './logic/read-external-dependencies.js';
+import { readFromFile } from './logic/read-from-file.js';
 
 export const validateExternalDeps = (maybePath: string | undefined) =>
   pipe(

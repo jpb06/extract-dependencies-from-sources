@@ -1,7 +1,7 @@
 import { Effect, pipe } from 'effect';
 
-import { onlyUnique } from './only-unique/filter-unique';
-import { getPathDependencies } from './path/get-path-dependencies';
+import { onlyUnique } from './only-unique/filter-unique.js';
+import { getPathDependencies } from './path/get-path-dependencies.js';
 
 export const getCodebasesDependencies = (
   rootPackageJsonDependencies: Record<string, string>,

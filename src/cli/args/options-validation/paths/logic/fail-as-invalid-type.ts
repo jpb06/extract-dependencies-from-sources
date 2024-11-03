@@ -1,9 +1,11 @@
-import chalk from 'chalk';
 import { Effect } from 'effect';
+import colors from 'picocolors';
 
 export const failAsInvalidType = () =>
   Effect.fail(
-    chalk.bold.redBright(
-      `Invalid type for 'paths' option: expecting an array of existing paths.\n`,
+    colors.bold(
+      colors.redBright(
+        `Invalid type for 'paths' option: expecting an array of existing paths.\n`,
+      ),
     ),
   );

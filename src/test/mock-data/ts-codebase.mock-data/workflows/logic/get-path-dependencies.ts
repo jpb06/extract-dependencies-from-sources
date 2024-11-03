@@ -1,7 +1,7 @@
 import { glob } from 'glob';
 
-import { onlyUnique } from './filter-unique';
-import { getFileDependencies } from './get-file-dependencies';
+import { onlyUnique } from './filter-unique.js';
+import { getFileDependencies } from './get-file-dependencies.js';
 
 export const getPathDependencies = async (
   path: string,
