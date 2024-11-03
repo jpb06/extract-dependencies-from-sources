@@ -16,7 +16,7 @@ permissions:
 
 jobs:
   lint:
-    name: ⬣ ESLint
+    name: ⬣ Lint
     runs-on: ubuntu-latest
     steps:
       - name: 🛑 Cancel Previous Runs
@@ -38,8 +38,11 @@ jobs:
       - name: 📥 Install deps
         run: bun install --frozen-lockfile
 
+      - name: 📓 Format
+        run: bun run format-ci
+
       - name: 🔬 Lint
-        run: bun lint
+        run: bun run lint
 
   typecheck:
     name: ʦ TypeScript

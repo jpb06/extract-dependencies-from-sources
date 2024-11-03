@@ -1,16 +1,18 @@
 #!/usr/bin/env node
 
-import { pipe, Effect } from 'effect';
+import { Effect, pipe } from 'effect';
 
-import { getCodebasesDependencies } from '../logic/codebase-dependencies/get-codebases-dependencies';
-import { formatDependencies } from '../logic/format-dependencies/format-dependencies';
-import { updateRootPackageJson } from '../logic/update-root-package-json/update-root-package-json';
-
-import { validateArguments } from './args/extract-args';
 import {
-  displaySuccessEffect,
+  formatDependencies,
+  getCodebasesDependencies,
+  updateRootPackageJson,
+} from '@logic';
+
+import { validateArguments } from './args/extract-args.js';
+import {
   displayException,
-} from './console/console.messages';
+  displaySuccessEffect,
+} from './console/console.messages.js';
 
 /* istanbul ignore file */
 

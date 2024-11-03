@@ -1,8 +1,10 @@
 import { Effect } from 'effect';
 
-import { getCodebasesDependencies as getCodebasesDependenciesEffect } from './logic/codebase-dependencies/get-codebases-dependencies';
-import { updateRootPackageJson } from './logic/update-root-package-json/update-root-package-json';
-import { FnSuccess } from './types/effect-success.type';
+import {
+  getCodebasesDependencies as getCodebasesDependenciesEffect,
+  updateRootPackageJson,
+} from '@logic';
+import type { FnSuccess } from '@types';
 
 type CodebasesDependenciesResult = FnSuccess<
   typeof getCodebasesDependenciesEffect

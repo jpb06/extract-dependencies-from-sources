@@ -1,10 +1,10 @@
 import { Effect, pipe } from 'effect';
 
-import { exists } from '../../../../effects/fsExtra.effects';
-import { CliArguments } from '../../types/cli-arguments.type';
+import { exists } from '@effects/fs-extra.effects.js';
 
-import { failAsNotFound } from './logic/fail-as-not-found';
-import { readPackageJsonFile } from './logic/read-package-json-file';
+import type { CliArguments } from '../../types/cli-arguments.type.js';
+import { failAsNotFound } from './logic/fail-as-not-found.js';
+import { readPackageJsonFile } from './logic/read-package-json-file.js';
 
 type ValidateRootPackageJsonInput = Pick<CliArguments, 'packagejson'>;
 

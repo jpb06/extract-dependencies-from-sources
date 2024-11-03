@@ -1,9 +1,9 @@
 import { Effect, pipe } from 'effect';
 
-import { pathExists } from '../../../../../effects/fsExtra.effects';
+import { pathExists } from '@effects/fs-extra.effects.js';
 
-import { failAsFileNotFound } from './fail-as-file-not-found';
-import { readExternalDependencies } from './read-external-dependencies';
+import { failAsFileNotFound } from './fail-as-file-not-found.js';
+import { readExternalDependencies } from './read-external-dependencies.js';
 
 export const readFromFile = (path: string) =>
   pipe(

@@ -1,8 +1,8 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
-import { arrayWithDuplicates } from '../../../test/mock-data/array-with-duplicates.mock-data';
+import { arrayWithDuplicates } from '@tests/mock-data';
 
-import { onlyUnique } from './filter-unique';
+import { onlyUnique } from './filter-unique.js';
 
 describe('onlyUnique function', () => {
   it('should only keep unique values', () => {

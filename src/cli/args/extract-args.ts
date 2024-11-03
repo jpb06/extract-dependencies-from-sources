@@ -1,12 +1,14 @@
 import { Effect, pipe } from 'effect';
 
-import { PackageJson } from '../../types/package-json.type';
+import type { PackageJson } from '@types';
 
-import { buildYargs } from './build-yargs';
-import { validateExternalDeps } from './options-validation/external-dependencies';
-import { ExternalDeps } from './options-validation/external-dependencies/logic/read-external-dependencies';
-import { validatePaths } from './options-validation/paths';
-import { validateRootPackageJson } from './options-validation/root-package-json';
+import { buildYargs } from './build-yargs.js';
+import {
+  type ExternalDeps,
+  validateExternalDeps,
+  validatePaths,
+  validateRootPackageJson,
+} from './options-validation/index.js';
 
 export interface ExtractDependenciesArguments {
   packageJsonData: PackageJson;
