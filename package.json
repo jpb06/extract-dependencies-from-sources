@@ -28,7 +28,7 @@
     "extractDepsEsm": "esm/cli/index.js"
   },
   "engines": {
-    "node": "20.x"
+    "node": ">=20.x"
   },
   "keywords": [],
   "license": "MIT",
@@ -57,7 +57,7 @@
   },
   "dependencies": {
     "dotenv-flow": "^4.1.0",
-    "effect": "3.10.8",
+    "effect": "3.10.15",
     "fs-extra": "^11.2.0",
     "glob": "^11.0.0",
     "picocolors": "^1.1.1",
@@ -70,16 +70,16 @@
     "@commitlint/config-conventional": "^19.5.0",
     "@types/dotenv-flow": "^3.3.3",
     "@types/fs-extra": "11.0.4",
-    "@types/node": "^22.8.7",
+    "@types/node": "^22.9.0",
     "@types/yargs": "^17.0.33",
     "@vitest/coverage-v8": "^2",
     "copyfiles": "^2.4.1",
     "del-cli": "^6.0.0",
-    "effect-errors": "^1.7.26",
+    "effect-errors": "^1.7.31",
     "readme-package-icons": "^1.1.16",
-    "ts-paths-resolver": "^1.1.9",
+    "ts-paths-resolver": "^1.1.13",
     "typescript": "^5.6.3",
-    "vite-tsconfig-paths": "^5.0.1",
+    "vite-tsconfig-paths": "^5.1.2",
     "vitest": "^2",
     "vitest-mock-extended": "^2.0.2"
   }
