@@ -1,7 +1,7 @@
 {
   "name": "extract-dependencies-from-sources",
   "description": "Inferring dependencies from the source code of a monorepo app",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
   "types": "./dts/index.d.ts",
