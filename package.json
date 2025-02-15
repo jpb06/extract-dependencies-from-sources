@@ -9,12 +9,12 @@
   "exports": {
     ".": {
       "require": {
-        "default": "./cjs/index.js",
-        "types": "./dts/index.d.ts"
+        "types": "./dts/index.d.ts",
+        "default": "./cjs/index.js"
       },
       "import": {
-        "default": "./esm/index.js",
-        "types": "./dts/index.d.ts"
+        "types": "./dts/index.d.ts",
+        "default": "./esm/index.js"
       }
     }
   },
@@ -56,31 +56,31 @@
     "sync-icons": "bun generateReadmeIcons -h 50"
   },
   "dependencies": {
-    "dotenv-flow": "^4.1.0",
+    "dotenv-flow": "4.1.0",
     "effect": "3.12.5",
-    "fs-extra": "^11.3.0",
-    "glob": "^11.0.1",
-    "picocolors": "^1.1.1",
-    "yaml": "^2.7.0",
-    "yargs": "^17.7.2"
+    "fs-extra": "11.3.0",
+    "glob": "11.0.1",
+    "picocolors": "1.1.1",
+    "yaml": "2.7.0",
+    "yargs": "17.7.2"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
-    "@commitlint/cli": "^19.6.1",
-    "@commitlint/config-conventional": "^19.6.0",
-    "@types/dotenv-flow": "^3.3.3",
+    "@biomejs/biome": "1.9.4",
+    "@commitlint/cli": "19.6.1",
+    "@commitlint/config-conventional": "19.6.0",
+    "@types/dotenv-flow": "3.3.3",
     "@types/fs-extra": "11.0.4",
-    "@types/node": "^22.10.7",
-    "@types/yargs": "^17.0.33",
-    "@vitest/coverage-v8": "^3",
-    "copyfiles": "^2.4.1",
-    "del-cli": "^6.0.0",
-    "effect-errors": "^1.8.16",
-    "readme-package-icons": "^1.1.16",
-    "ts-paths-resolver": "^1.2.20",
-    "typescript": "^5.7.3",
-    "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^3",
-    "vitest-mock-extended": "^2.0.2"
+    "@types/node": "22.10.7",
+    "@types/yargs": "17.0.33",
+    "@vitest/coverage-v8": "3",
+    "copyfiles": "2.4.1",
+    "del-cli": "6.0.0",
+    "effect-errors": "1.8.16",
+    "readme-package-icons": "1.1.16",
+    "ts-paths-resolver": "1.2.20",
+    "typescript": "5.7.3",
+    "vite-tsconfig-paths": "5.1.4",
+    "vitest": "3",
+    "vitest-mock-extended": "2.0.2"
   }
 }
