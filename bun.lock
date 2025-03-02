@@ -25,7 +25,7 @@
         "del-cli": "6.0.0",
         "effect-errors": "1.8.38",
         "readme-package-icons": "1.2.0",
-        "ts-paths-resolver": "1.2.33",
+        "ts-paths-resolver": "1.2.34",
         "typescript": "5.8.2",
         "vite-tsconfig-paths": "5.1.4",
         "vitest": "3",
@@ -660,7 +660,7 @@
 
     "ts-essentials": ["ts-essentials@10.0.4", "", { "peerDependencies": { "typescript": ">=4.5.0" }, "optionalPeers": ["typescript"] }, "sha512-lwYdz28+S4nicm+jFi6V58LaAIpxzhg9rLdgNC1VsdP/xiFBseGhF1M/shwCk6zMmwahBZdXcl34LVHrEang3A=="],
 
-    "ts-paths-resolver": ["ts-paths-resolver@1.2.33", "", { "dependencies": { "@effect/platform": "0.77.4", "@effect/platform-node": "0.73.4", "comment-json": "4.2.5", "effect": "3.13.4", "effect-errors": "1.8.38", "glob": "11.0.1", "picocolors": "1.1.1", "yargs": "17.7.2" }, "peerDependencies": { "typescript": "5.8.2" }, "bin": { "resolve-ts-paths": "cjs/cli/resolve-ts-paths.cli.js", "resolve-ts-paths-esm": "esm/cli/resolve-ts-paths.cli.js" } }, "sha512-jnb8W6/1aKVzTLPDUPGzCrQihzfLRYLCQdyjprsJUOEPYmnAa9zvXYNHmwpM3uO7oOOGdmwjWaKwY0EdGYZnIg=="],
+    "ts-paths-resolver": ["ts-paths-resolver@1.2.34", "", { "dependencies": { "@effect/platform": "0.77.4", "@effect/platform-node": "0.73.4", "comment-json": "4.2.5", "effect": "3.13.4", "effect-errors": "1.8.38", "glob": "11.0.1", "picocolors": "1.1.1", "yargs": "17.7.2" }, "peerDependencies": { "typescript": "5.8.2" }, "bin": { "resolve-ts-paths": "cjs/cli/resolve-ts-paths.cli.js", "resolve-ts-paths-esm": "esm/cli/resolve-ts-paths.cli.js" } }, "sha512-gKsTgiiO87QqM1JgO2qbFGFV3ADan8UsD7jGleb/dG6JjGQ/Ul768fvyetH0V3a8py/Hd4tDK+tS0uuK8XHy0A=="],
 
     "tsconfck": ["tsconfck@3.1.5", "", { "peerDependencies": { "typescript": "^5.0.0" }, "optionalPeers": ["typescript"], "bin": { "tsconfck": "bin/tsconfck.js" } }, "sha512-CLDfGgUp7XPswWnezWwsCRxNmgQjhYq3VXHM0/XIRxhVrKw0M1if9agzryh1QS3nxjCROvV+xWxoJO1YctzzWg=="],
 
