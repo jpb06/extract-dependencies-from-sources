@@ -75,7 +75,7 @@
     "@vitest/coverage-v8": "3",
     "copyfiles": "2.4.1",
     "del-cli": "6.0.0",
-    "effect-errors": "1.8.38",
+    "effect-errors": "1.8.39",
     "readme-package-icons": "1.2.0",
     "ts-paths-resolver": "1.2.33",
     "typescript": "5.8.2",
