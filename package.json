@@ -57,7 +57,7 @@
   },
   "dependencies": {
     "dotenv-flow": "4.1.0",
-    "effect": "3.13.4",
+    "effect": "3.13.11",
     "fs-extra": "11.3.0",
     "glob": "11.0.1",
     "picocolors": "1.1.1",
