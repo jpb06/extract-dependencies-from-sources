@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.8](https://github.com/jpb06/extract-dependencies-from-sources/compare/v1.1.7...v1.1.8) (2025-04-20)
+
+
+### Bug Fixes
+
+* **deps:** update dependency effect to v3.14.11 ([#63](https://github.com/jpb06/extract-dependencies-from-sources/issues/63)) ([ba93cf8](https://github.com/jpb06/extract-dependencies-from-sources/commit/ba93cf883de02539c9759f853ca9bfc93219b044))
+
 ## [1.1.7](https://github.com/jpb06/extract-dependencies-from-sources/compare/v1.1.6...v1.1.7) (2025-03-30)
 
 
