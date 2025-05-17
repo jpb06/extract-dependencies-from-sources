@@ -61,7 +61,7 @@
     "fs-extra": "11.3.0",
     "glob": "11.0.1",
     "picocolors": "1.1.1",
-    "yaml": "2.7.1",
+    "yaml": "2.8.0",
     "yargs": "17.7.2"
   },
   "devDependencies": {
