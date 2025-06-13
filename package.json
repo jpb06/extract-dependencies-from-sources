@@ -77,7 +77,7 @@
     "del-cli": "6.0.0",
     "effect-errors": "1.10.11",
     "readme-package-icons": "1.2.1",
-    "ts-paths-resolver": "1.2.63",
+    "ts-paths-resolver": "1.2.65",
     "typescript": "5.8.3",
     "vite-tsconfig-paths": "5.1.4",
     "vitest": "3",
