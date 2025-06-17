@@ -62,7 +62,7 @@
     "glob": "11.0.3",
     "picocolors": "1.1.1",
     "yaml": "2.8.0",
-    "yargs": "17.7.2"
+    "yargs": "18.0.0"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
