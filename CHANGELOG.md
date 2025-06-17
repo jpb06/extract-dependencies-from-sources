@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.10](https://github.com/jpb06/extract-dependencies-from-sources/compare/v1.1.9...v1.1.10) (2025-06-17)
+
+
+### Bug Fixes
+
+* **deps:** update dependency effect to v3.16.8 ([#80](https://github.com/jpb06/extract-dependencies-from-sources/issues/80)) ([abf3891](https://github.com/jpb06/extract-dependencies-from-sources/commit/abf38911a2bebe4e3648b6524dd950c7bfdbe920))
+* **deps:** update dependency glob to v11.0.3 ([#84](https://github.com/jpb06/extract-dependencies-from-sources/issues/84)) ([692f966](https://github.com/jpb06/extract-dependencies-from-sources/commit/692f966ad605520f3c97c5430eacf626db70a413))
+* **deps:** update dependency yargs to v18 ([#81](https://github.com/jpb06/extract-dependencies-from-sources/issues/81)) ([a47877d](https://github.com/jpb06/extract-dependencies-from-sources/commit/a47877dd346c6b5b1e7a429f22aa223caf327dc1))
+
 ## [1.1.9](https://github.com/jpb06/extract-dependencies-from-sources/compare/v1.1.8...v1.1.9) (2025-05-17)
 
 
