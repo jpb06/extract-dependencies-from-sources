@@ -12,7 +12,7 @@ describe('validateArguments function', () => {
   });
 
   beforeAll(() => {
-    // biome-ignore lint/suspicious/noEmptyBlockStatements: <explanation>
+    // biome-ignore lint/suspicious/noEmptyBlockStatements: test mock
     vi.spyOn(process, 'exit').mockImplementation((() => {}) as (
       this: never,
       code?: string | number | null | undefined,

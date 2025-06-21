@@ -1,7 +1,6 @@
 import { Effect, pipe } from 'effect';
 
 import type { CliArguments } from '../../types/cli-arguments.type.js';
-
 import { ensureAllFilesExist } from './logic/ensure-all-files-exist.js';
 import { ensureArray } from './logic/ensure-array.js';
 
