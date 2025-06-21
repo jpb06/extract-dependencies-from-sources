@@ -7,7 +7,7 @@ export const getFileDependencies = async (file: string): Promise<string[]> => {
 
   let match: RegExpExecArray | null = null;
   const result: string[] = [];
-  // biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
+  // biome-ignore lint/suspicious/noAssignInExpressions: /
   while (null !== (match = depsRegex.exec(input))) {
     const dep = match[2];
 
