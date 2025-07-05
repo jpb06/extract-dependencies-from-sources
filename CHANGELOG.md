@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.12](https://github.com/jpb06/extract-dependencies-from-sources/compare/v1.1.11...v1.1.12) (2025-07-05)
+
+
+### Bug Fixes
+
+* readme icons ([#98](https://github.com/jpb06/extract-dependencies-from-sources/issues/98)) ([ca76c7a](https://github.com/jpb06/extract-dependencies-from-sources/commit/ca76c7a71b93a1b5f6aae2334cd2ef87bb29d154))
+
 ## [1.1.11](https://github.com/jpb06/extract-dependencies-from-sources/compare/v1.1.10...v1.1.11) (2025-07-04)
 
 
