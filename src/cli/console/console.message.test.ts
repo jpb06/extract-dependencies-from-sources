@@ -1,32 +1,16 @@
-import { Effect } from 'effect';
+import { type Console, Effect } from 'effect';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { mockConsole, mockPicoColors } from '@tests/mocks';
+import { mockPicoColors } from '@tests/mocks';
 
-// vi.mock('picocolors', () => ({
-//   default: {
-//     cyanBright: vi.fn(),
-//     greenBright: vi.fn(),
-//     redBright: vi.fn(),
-//     whiteBright: vi.fn(),
-//     yellowBright: vi.fn(),
-//     underline: {
-//       cyanBright: vi.fn(),
-//     },
-//     bold: {
-//       redBright: vi.fn(),
-//     },
-//   },
-// }));
-//global.console = { info: vi.fn(), error: vi.fn() } as unknown as Console;
-
-describe('console messages function', async () => {
+describe('console messages function', () => {
   const packageName = 'extract-dependencies-from-sources';
 
-  await mockConsole({
-    info: vi.fn(),
-    error: vi.fn(),
-  });
+  const mockedConsole = {
+    info: vi.fn().mockReturnValue(Effect.void),
+    error: vi.fn().mockReturnValue(Effect.void),
+  } as unknown as Console.Console;
+
   const colors = mockPicoColors();
 
   beforeEach(() => {
@@ -37,15 +21,23 @@ describe('console messages function', async () => {
     it('should call console.info', async () => {
       const { displaySuccessEffect } = await import('./console.messages.js');
 
-      Effect.runSync(displaySuccessEffect);
+      const task = displaySuccessEffect().pipe(
+        Effect.withConsole(mockedConsole),
+      );
 
-      expect(console.info).toHaveBeenCalledTimes(1);
+      Effect.runSync(task);
+
+      expect(mockedConsole.info).toHaveBeenCalledTimes(1);
     });
 
     it('should display the package name in cyan', async () => {
       const { displaySuccessEffect } = await import('./console.messages.js');
 
-      Effect.runSync(displaySuccessEffect);
+      const task = displaySuccessEffect().pipe(
+        Effect.withConsole(mockedConsole),
+      );
+
+      Effect.runSync(task);
 
       expect(colors.cyanBright).toHaveBeenCalledWith(packageName);
     });
@@ -53,7 +45,11 @@ describe('console messages function', async () => {
     it('should display a success message in green with the number of icons added', async () => {
       const { displaySuccessEffect } = await import('./console.messages.js');
 
-      Effect.runSync(displaySuccessEffect);
+      const task = displaySuccessEffect().pipe(
+        Effect.withConsole(mockedConsole),
+      );
+
+      Effect.runSync(task);
 
       expect(colors.greenBright).toHaveBeenCalledTimes(1);
       expect(colors.greenBright).toHaveBeenCalledWith(
@@ -72,15 +68,23 @@ describe('console messages function', async () => {
     it('should call console.error', async () => {
       const { displayException } = await import('./console.messages.js');
 
-      displayException(error);
+      const task = displayException(error).pipe(
+        Effect.withConsole(mockedConsole),
+      );
 
-      expect(console.error).toHaveBeenCalledTimes(1);
+      Effect.runSync(task);
+
+      expect(mockedConsole.error).toHaveBeenCalledTimes(1);
     });
 
     it('should display the package name in cyan', async () => {
       const { displayException } = await import('./console.messages.js');
 
-      displayException(error);
+      const task = displayException(error).pipe(
+        Effect.withConsole(mockedConsole),
+      );
+
+      Effect.runSync(task);
 
       expect(colors.cyanBright).toHaveBeenCalledWith(packageName);
     });
@@ -88,7 +92,11 @@ describe('console messages function', async () => {
     it('should display a success message in green with the number of icons added', async () => {
       const { displayException } = await import('./console.messages.js');
 
-      displayException(error);
+      const task = displayException(error).pipe(
+        Effect.withConsole(mockedConsole),
+      );
+
+      Effect.runSync(task);
 
       expect(colors.redBright).toHaveBeenCalledTimes(1);
       expect(colors.redBright).toHaveBeenCalledWith(error.stack);

@@ -1,6 +1,5 @@
+import { FileSystem } from '@effect/platform/FileSystem';
 import { Effect, pipe } from 'effect';
-
-import { exists } from '@effects/fs-extra.effects.js';
 
 import type { CliArguments } from '../../types/cli-arguments.type.js';
 import { failAsNotFound } from './logic/fail-as-not-found.js';
@@ -13,7 +12,9 @@ export const validateRootPackageJson = ({
 }: ValidateRootPackageJsonInput) =>
   pipe(
     Effect.gen(function* () {
-      const packageFileExists = yield* exists(packagejson);
+      const fs = yield* FileSystem;
+
+      const packageFileExists = yield* fs.exists(packagejson);
       if (packageFileExists) {
         return yield* readPackageJsonFile(packagejson);
       }

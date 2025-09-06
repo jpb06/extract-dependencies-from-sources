@@ -1,4 +1,5 @@
-import { Effect } from 'effect';
+import { NodeFileSystem } from '@effect/platform-node';
+import { Effect, pipe } from 'effect';
 
 import {
   getCodebasesDependencies as getCodebasesDependenciesEffect,
@@ -13,10 +14,14 @@ type CodebasesDependenciesResult = FnSuccess<
 const getCodebasesDependencies = (
   rootPackageJsonDependencies: Record<string, string>,
   paths: string[],
-): Promise<CodebasesDependenciesResult> =>
-  Effect.runPromise(
+): Promise<CodebasesDependenciesResult> => {
+  const task = pipe(
     getCodebasesDependenciesEffect(rootPackageJsonDependencies, paths),
+    Effect.provide(NodeFileSystem.layer),
   );
+
+  return Effect.runPromise(task);
+};
 
 export { getCodebasesDependencies, updateRootPackageJson };
 

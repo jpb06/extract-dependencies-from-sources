@@ -1,6 +1,5 @@
+import { FileSystem } from '@effect/platform/FileSystem';
 import { Effect, pipe } from 'effect';
-
-import { exists } from '@effects/fs-extra.effects.js';
 
 import { failAsInvalidType } from './fail-as-invalid-type.js';
 
@@ -10,7 +9,9 @@ export const ensureAllFilesExist = (paths: string[]) =>
       paths,
       (path) =>
         Effect.gen(function* () {
-          const fileExists = yield* exists(path);
+          const fs = yield* FileSystem;
+
+          const fileExists = yield* fs.exists(path);
           if (fileExists) {
             return yield* Effect.succeed(path);
           }

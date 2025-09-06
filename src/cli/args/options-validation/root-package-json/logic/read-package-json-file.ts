@@ -1,11 +1,12 @@
 import { Effect, pipe } from 'effect';
 
-import { readJson } from '@effects/fs-extra.effects.js';
 import type { PackageJson } from '@types';
+
+import { readJsonEffect } from '../../../../../effects/fs/index.js';
 
 export const readPackageJsonFile = (path: string) =>
   pipe(
-    readJson(path),
+    readJsonEffect(path),
     Effect.map((data) => ({
       data: data as PackageJson,
       path,

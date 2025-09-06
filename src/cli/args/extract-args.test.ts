@@ -1,148 +1,203 @@
-import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
+import { Effect, pipe } from 'effect';
+import { describe, expect, it, vi } from 'vitest';
+import { mockFn } from 'vitest-mock-extended';
 
-import { mockConsole, mockFsExtra } from '@tests/mocks';
+import { makeFsTestLayer } from '@tests/layers';
+
+import { packageJsonMockData } from '../../test/mock-data/package-json.mock-data.js';
+import { buildYargs } from './build-yargs.js';
+import type { CliArguments } from './types/cli-arguments.type.js';
+
+vi.mock('./build-yargs.ts');
 
 describe('validateArguments function', () => {
-  const validateArgumentsPath = '../../cli/args/extract-args';
-
-  const { exists, pathExists, readFile, readJson } = mockFsExtra();
-
-  mockConsole({
-    error: vi.fn(),
-  });
-
-  beforeAll(() => {
-    // biome-ignore lint/suspicious/noEmptyBlockStatements: test mock
-    vi.spyOn(process, 'exit').mockImplementation((() => {}) as (
-      this: never,
-      code?: string | number | null | undefined,
-    ) => never);
-  });
-
-  afterEach(() => {
-    vi.clearAllMocks();
-  });
-
   it('should throw an error if paths option is invalid', async () => {
-    exists.mockResolvedValue(true as never);
-    readJson.mockResolvedValue({});
+    const { FsTestLayer } = makeFsTestLayer({
+      exists: Effect.succeed(true),
+      readFileString: Effect.succeed('{}'),
+    });
 
-    const { runCommand } = await import('../../test/util/run-command.js');
-    await expect(runCommand(validateArgumentsPath)).rejects.toThrowError(
+    const args: Partial<CliArguments> = {
+      packagejson: './package.json',
+    };
+    vi.mocked(buildYargs).mockReturnValueOnce(args as CliArguments);
+
+    const { validateArguments } = await import('./extract-args.js');
+
+    const task = pipe(validateArguments, Effect.provide(FsTestLayer));
+
+    await expect(Effect.runPromise(task)).rejects.toThrowError(
       "Invalid type for 'paths' option: expecting an array of existing paths",
     );
   });
 
   it('should throw an error when root package json could not be found', async () => {
-    exists.mockImplementation((path) =>
-      Promise.resolve(path !== './package.json'),
-    );
+    const { FsTestLayer, existsMock } = makeFsTestLayer({
+      exists: vi
+        .fn()
+        .mockImplementation((path) =>
+          Effect.succeed(path !== './package.json'),
+        ),
+    });
 
-    const { runCommand } = await import('../../test/util/run-command.js');
+    const args: Partial<CliArguments> = {
+      packagejson: './package.json',
+      path: ['../cli', '../test'],
+    };
+    vi.mocked(buildYargs).mockReturnValueOnce(args as CliArguments);
 
-    await expect(
-      runCommand(
-        validateArgumentsPath,
-        '--path',
-        '../cli',
-        '--path',
-        '../test',
-      ),
-    ).rejects.toThrowError(
+    const { validateArguments } = await import('./extract-args.js');
+
+    const task = pipe(validateArguments, Effect.provide(FsTestLayer));
+
+    await expect(Effect.runPromise(task)).rejects.toThrowError(
       'Root package.json could not be found at path ./package.json',
     );
+
+    expect(existsMock).toHaveBeenCalledWith('./package.json');
   });
 
   it('should return paths', async () => {
-    exists.mockResolvedValue(true as never);
+    const packageJsonContent = JSON.stringify(packageJsonMockData);
 
-    const { runCommand } = await import('../../test/util/run-command.js');
+    const { FsTestLayer } = makeFsTestLayer({
+      exists: Effect.succeed(true),
+      readFileString: Effect.succeed(packageJsonContent),
+    });
 
-    const result = await runCommand(
-      validateArgumentsPath,
-      '--path',
-      '../cli',
-      '--path',
-      '../test',
-    );
+    const args: Partial<CliArguments> = {
+      packagejson: './package.json',
+      path: ['../cli', '../test'],
+    };
+    vi.mocked(buildYargs).mockReturnValueOnce(args as CliArguments);
 
-    expect(result).toStrictEqual({
+    const { validateArguments } = await import('./extract-args.js');
+
+    const task = pipe(validateArguments, Effect.provide(FsTestLayer));
+
+    const { packageJsonData, ...rest } = await Effect.runPromise(task);
+
+    expect(JSON.stringify(packageJsonData)).toStrictEqual(packageJsonContent);
+    expect(rest).toStrictEqual({
       externaldeps: [],
-      packageJsonData: {},
       packageJsonPath: './package.json',
       paths: ['../cli', '../test'],
     });
   });
 
   it('should return one path', async () => {
-    exists.mockResolvedValue(true as never);
+    const packageJsonContent = JSON.stringify(packageJsonMockData);
 
-    const { runCommand } = await import('../../test/util/run-command.js');
+    const { FsTestLayer } = makeFsTestLayer({
+      exists: Effect.succeed(true),
+      readFileString: Effect.succeed(packageJsonContent),
+    });
 
-    const result = await runCommand(validateArgumentsPath, '--path', '../cli');
+    const args: Partial<CliArguments> = {
+      packagejson: './package.json',
+      path: ['../cli'],
+    };
+    vi.mocked(buildYargs).mockReturnValueOnce(args as CliArguments);
 
-    expect(result).toStrictEqual({
+    const { validateArguments } = await import('./extract-args.js');
+
+    const task = pipe(validateArguments, Effect.provide(FsTestLayer));
+
+    const { packageJsonData: _, ...rest } = await Effect.runPromise(task);
+
+    expect(rest).toStrictEqual({
       externaldeps: [],
-      packageJsonData: {},
       packageJsonPath: './package.json',
       paths: ['../cli'],
     });
   });
 
   it('should throw an error when some path is invalid', async () => {
-    exists
-      .mockResolvedValueOnce(true as never)
-      .mockResolvedValueOnce(false as never);
-    readJson.mockResolvedValueOnce({});
+    const { FsTestLayer } = makeFsTestLayer({
+      exists: vi
+        .fn()
+        .mockReturnValueOnce(Effect.succeed(true))
+        .mockReturnValueOnce(Effect.succeed(false)),
+      readFileString: Effect.succeed('{}'),
+    });
 
-    const { runCommand } = await import('../../test/util/run-command.js');
+    const args: Partial<CliArguments> = {
+      packagejson: './package.json',
+      path: ['../cli'],
+    };
+    vi.mocked(buildYargs).mockReturnValueOnce(args as CliArguments);
 
-    await expect(
-      runCommand(validateArgumentsPath, '--path', '../cli'),
-    ).rejects.toThrowError(
+    const { validateArguments } = await import('./extract-args.js');
+
+    const task = pipe(validateArguments, Effect.provide(FsTestLayer));
+
+    await expect(Effect.runPromise(task)).rejects.toThrowError(
       "Invalid type for 'paths' option: expecting an array of existing paths",
     );
   });
 
   it('should throw an error if externaldeps path is invalid', async () => {
-    exists.mockResolvedValue(true as never);
-    readJson.mockResolvedValueOnce({});
-    pathExists.mockResolvedValue(false as never);
+    const externalDepsPath = '../cli/externaldeps.yaml';
+    const existsMock = mockFn();
+    existsMock
+      .calledWith('./package.json')
+      .mockReturnValueOnce(Effect.succeed(true));
+    existsMock
+      .calledWith(externalDepsPath)
+      .mockReturnValueOnce(Effect.succeed(false));
 
-    const { runCommand } = await import('../../test/util/run-command.js');
+    const { FsTestLayer } = makeFsTestLayer({
+      exists: existsMock,
+      readFileString: Effect.succeed('{}'),
+    });
 
-    await expect(
-      runCommand(
-        validateArgumentsPath,
-        '--path',
-        '../cli',
-        '--externaldeps',
-        '../cli/externaldeps.yaml',
-      ),
-    ).rejects.toThrowError(
+    const args: Partial<CliArguments> = {
+      packagejson: './package.json',
+      path: ['../cli'],
+      externaldeps: externalDepsPath,
+    };
+    vi.mocked(buildYargs).mockReturnValueOnce(args as CliArguments);
+
+    const { validateArguments } = await import('./extract-args.js');
+
+    const task = pipe(validateArguments, Effect.provide(FsTestLayer));
+
+    await expect(Effect.runPromise(task)).rejects.toThrowError(
       "External dependencies file ../cli/externaldeps.yaml doesn't exist",
     );
   });
 
   it('should use the externalDeps option', async () => {
-    exists.mockResolvedValue(true as never);
-    pathExists.mockResolvedValue(true as never);
-    readFile.mockResolvedValue(
-      `externaldeps:
+    const externalDepsPath = '../cli/externaldeps.yaml';
+
+    const readFileStringMock = mockFn();
+    readFileStringMock
+      .calledWith('./package.json')
+      .mockReturnValueOnce(Effect.succeed('{}'));
+    readFileStringMock.calledWith(externalDepsPath).mockReturnValueOnce(
+      Effect.succeed(`externaldeps:
     - msw: ^1.1.0
     - eslint: ~8.36.0
-  ` as never,
+`),
     );
 
-    const { runCommand } = await import('../../test/util/run-command.js');
+    const { FsTestLayer } = makeFsTestLayer({
+      exists: Effect.succeed(true),
+      readFileString: readFileStringMock,
+    });
 
-    const result = await runCommand(
-      validateArgumentsPath,
-      '--path',
-      '../cli',
-      '--externaldeps',
-      '../cli/externaldeps.yaml',
-    );
+    const args: Partial<CliArguments> = {
+      packagejson: './package.json',
+      path: ['../cli'],
+      externaldeps: externalDepsPath,
+    };
+    vi.mocked(buildYargs).mockReturnValueOnce(args as CliArguments);
+
+    const { validateArguments } = await import('./extract-args.js');
+
+    const task = pipe(validateArguments, Effect.provide(FsTestLayer));
+
+    const result = await Effect.runPromise(task);
 
     expect(result).toStrictEqual({
       externaldeps: [

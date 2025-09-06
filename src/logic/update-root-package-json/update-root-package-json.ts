@@ -1,6 +1,6 @@
+import { FileSystem } from '@effect/platform/FileSystem';
 import { Effect, pipe } from 'effect';
 
-import { writeJson } from '@effects/fs-extra.effects.js';
 import type { PackageJson } from '@types';
 
 const removeQuotes = (str: string): string => str.replaceAll('"', '');
@@ -26,7 +26,9 @@ export const updateRootPackageJson = (
         },
       };
 
-      yield* writeJson(path, packageJson);
+      const fs = yield* FileSystem;
+
+      yield* fs.writeFileString(path, JSON.stringify(packageJson, null, 2));
     }),
     Effect.withSpan('updateRootPackageJson', {
       attributes: { path, data, dependencies },

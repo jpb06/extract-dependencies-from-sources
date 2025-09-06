@@ -1,44 +1,46 @@
-import { Effect } from 'effect';
-import { beforeAll, describe, expect, it, vi } from 'vitest';
+import { Effect, pipe } from 'effect';
+import { describe, expect, it } from 'vitest';
 
+import { makeFsTestLayer } from '@tests/layers';
 import { packageJsonMockData } from '@tests/mock-data';
-import { mockConsole, mockFsExtra, mockPicoColors } from '@tests/mocks';
+import { mockPicoColors } from '@tests/mocks';
 
 describe('validateRootPackageJson function', () => {
   const path = './cool';
 
-  const { exists, readJson } = mockFsExtra();
-  mockConsole({
-    error: vi.fn(),
-  });
   mockPicoColors();
 
-  beforeAll(() => {
-    readJson.mockResolvedValue(vi.fn().mockResolvedValue(packageJsonMockData));
-  });
-
   it('should display an error message when package.json could not be found on provided path', async () => {
-    exists.mockResolvedValue(false as never);
+    const { FsTestLayer } = makeFsTestLayer({
+      exists: Effect.succeed(false),
+    });
 
     const { validateRootPackageJson } = await import('./index.js');
 
-    await expect(
-      Effect.runPromise(validateRootPackageJson({ packagejson: path })),
-    ).rejects.toThrow();
+    const task = pipe(
+      validateRootPackageJson({ packagejson: path }),
+      Effect.provide(FsTestLayer),
+    );
+
+    await expect(Effect.runPromise(task)).rejects.toThrow();
   });
 
   it('should read the package json file', async () => {
-    exists.mockResolvedValue(true as never);
+    const { FsTestLayer, readFileStringMock } = makeFsTestLayer({
+      exists: Effect.succeed(true),
+      readFileString: Effect.succeed(JSON.stringify(packageJsonMockData)),
+    });
 
     const { validateRootPackageJson } = await import('./index.js');
 
-    const { path: returnedPath } = await Effect.runPromise(
-      validateRootPackageJson({
-        packagejson: path,
-      }),
+    const task = pipe(
+      validateRootPackageJson({ packagejson: path }),
+      Effect.provide(FsTestLayer),
     );
 
-    expect(readJson).toHaveBeenCalledWith(path);
+    const { path: returnedPath } = await Effect.runPromise(task);
+
+    expect(readFileStringMock).toHaveBeenCalledWith(path, 'utf8');
     expect(returnedPath).toBe(path);
   });
 });

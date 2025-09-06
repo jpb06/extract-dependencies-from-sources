@@ -4,9 +4,9 @@
     "": {
       "name": "extract-dependencies-from-sources",
       "dependencies": {
+        "comment-json": "^4.2.5",
         "dotenv-flow": "4.1.0",
         "effect": "3.16.12",
-        "fs-extra": "11.3.0",
         "glob": "11.0.3",
         "picocolors": "1.1.1",
         "yaml": "2.8.0",
@@ -17,19 +17,20 @@
         "@commitlint/cli": "19.8.1",
         "@commitlint/config-conventional": "19.8.1",
         "@types/dotenv-flow": "3.3.3",
-        "@types/fs-extra": "11.0.4",
+        "@types/fs-extra": "^11.0.4",
         "@types/node": "24.0.10",
         "@types/yargs": "17.0.33",
         "@vitest/coverage-v8": "3",
         "copyfiles": "2.4.1",
         "del-cli": "6.0.0",
         "effect-errors": "1.10.14",
+        "fs-extra": "^11.3.1",
         "readme-package-icons": "1.2.2",
         "ts-paths-resolver": "1.2.68",
         "typescript": "5.8.3",
         "vite-tsconfig-paths": "5.1.4",
         "vitest": "3",
-        "vitest-mock-extended": "3.1.0",
+        "vitest-mock-extended": "^3.1.0",
       },
     },
   },
@@ -438,7 +439,7 @@
 
     "foreground-child": ["foreground-child@3.3.1", "", { "dependencies": { "cross-spawn": "^7.0.6", "signal-exit": "^4.0.1" } }, "sha512-gIXjKqtFuWEgzFRJA9WCQeSJLZDjgJUOMCMzxtvFq/37KojM1BFGufqsCy0r4qSQmYLsZYMeyRqzIWOMup03sw=="],
 
-    "fs-extra": ["fs-extra@11.3.0", "", { "dependencies": { "graceful-fs": "^4.2.0", "jsonfile": "^6.0.1", "universalify": "^2.0.0" } }, "sha512-Z4XaCL6dUDHfP/jT25jJKMmtxvuwbkrD1vNSMFlo9lNLY2c5FHYSQgHPRZUjAB26TpDEoW9HCOgplrdbaPV/ew=="],
+    "fs-extra": ["fs-extra@11.3.1", "", { "dependencies": { "graceful-fs": "^4.2.0", "jsonfile": "^6.0.1", "universalify": "^2.0.0" } }, "sha512-eXvGGwZ5CL17ZSwHWd3bbgk7UUpF6IFHtP57NYYakPvHOs8GDgDe5KJI36jIJzDkJ6eJjuzRA8eBQb6SkKue0g=="],
 
     "fs.realpath": ["fs.realpath@1.0.0", "", {}, "sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw=="],
 
