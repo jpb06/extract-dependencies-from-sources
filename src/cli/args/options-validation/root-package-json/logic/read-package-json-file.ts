@@ -1,8 +1,7 @@
 import { Effect, pipe } from 'effect';
 
+import { readJsonEffect } from '@effects/fs/index.js';
 import type { PackageJson } from '@types';
-
-import { readJsonEffect } from '../../../../../effects/fs/index.js';
 
 export const readPackageJsonFile = (path: string) =>
   pipe(
