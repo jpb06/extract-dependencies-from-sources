@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.2.0](https://github.com/jpb06/extract-dependencies-from-sources/compare/v1.1.12...v1.2.0) (2025-09-06)
+
+
+### Features
+
+* using effect layers ([#112](https://github.com/jpb06/extract-dependencies-from-sources/issues/112)) ([95ea9ca](https://github.com/jpb06/extract-dependencies-from-sources/commit/95ea9caaf7d3aaea90ad17bc6423f425f0e83268))
+
+
+### Bug Fixes
+
+* **deps:** update dependency effect to v3.17.13 ([#102](https://github.com/jpb06/extract-dependencies-from-sources/issues/102)) ([fc78133](https://github.com/jpb06/extract-dependencies-from-sources/commit/fc78133b3bfc072edb4085429c5b84a4a175955d))
+* **deps:** update dependency yaml to v2.8.1 ([#106](https://github.com/jpb06/extract-dependencies-from-sources/issues/106)) ([116d9be](https://github.com/jpb06/extract-dependencies-from-sources/commit/116d9beabbdd71927456a1cbcccb142153480004))
+
 ## [1.1.12](https://github.com/jpb06/extract-dependencies-from-sources/compare/v1.1.11...v1.1.12) (2025-07-05)
 
 
