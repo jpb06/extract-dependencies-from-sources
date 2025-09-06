@@ -79,7 +79,7 @@
     "effect-errors": "1.10.14",
     "readme-package-icons": "1.2.2",
     "ts-paths-resolver": "1.2.68",
-    "typescript": "5.8.3",
+    "typescript": "5.9.2",
     "vite-tsconfig-paths": "5.1.4",
     "vitest": "3",
     "vitest-mock-extended": "3.1.0"
