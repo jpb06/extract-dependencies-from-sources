@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { NodeFileSystem } from '@effect/platform-node';
 import { Effect, pipe } from 'effect';
 
 import {
@@ -33,13 +34,14 @@ import {
           ...dependencies,
         ]);
 
-        yield* displaySuccessEffect;
+        yield* displaySuccessEffect();
       }),
       Effect.catchAll((err) => {
         displayException(err);
 
         return Effect.fail(err);
       }),
+      Effect.provide(NodeFileSystem.layer),
       Effect.withSpan('extract-dependencies-from-sources cli'),
     ),
   ))();

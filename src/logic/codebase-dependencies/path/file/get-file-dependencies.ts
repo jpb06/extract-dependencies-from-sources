@@ -1,3 +1,4 @@
+import { FileSystem } from '@effect/platform/FileSystem';
 import {
   Effect,
   Array as EffectArray,
@@ -5,8 +6,6 @@ import {
   Predicate,
   pipe,
 } from 'effect';
-
-import { readFile } from '@effects/fs-extra.effects.js';
 
 const depsRegex = new RegExp(/(from)? ['"](.*)['"](;?)$/, 'gm');
 
@@ -25,7 +24,8 @@ const getExternalImports = (fileContent: string) =>
 
 export const getFileDependencies = (path: string) =>
   pipe(
-    readFile(path),
+    FileSystem,
+    Effect.flatMap((fs) => fs.readFileString(path)),
     Effect.map(getExternalImports),
     Effect.withSpan('getFileDependencies', { attributes: { path } }),
   );

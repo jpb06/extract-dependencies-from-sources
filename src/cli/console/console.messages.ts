@@ -1,20 +1,18 @@
-import { Effect } from 'effect';
+import { Console } from 'effect';
 import colors from 'picocolors';
 
-export const displaySuccessEffect = Effect.sync(() => {
-  console.info(
-    `${colors.cyanBright(
-      'extract-dependencies-from-sources',
-    )} ✅ - ${colors.greenBright(
+const packageName = 'extract-dependencies-from-sources';
+
+export const displaySuccessEffect = () =>
+  Console.info(
+    `${colors.cyanBright(packageName)} ✅ - ${colors.greenBright(
       'Dependencies shrinked - root package.json updated',
     )}`,
   );
-});
 
-export const displayException = (err: unknown): void => {
-  console.error(
+export const displayException = (err: unknown) =>
+  Console.error(
     `${colors.cyanBright(
-      'extract-dependencies-from-sources',
+      packageName,
     )} ❌ - ${colors.redBright((err as { stack: string }).stack)}`,
   );
-};

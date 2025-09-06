@@ -1,7 +1,6 @@
+import { FileSystem } from '@effect/platform/FileSystem';
 import { Effect, pipe } from 'effect';
 import yaml from 'yaml';
-
-import { readFile } from '@effects/fs-extra.effects.js';
 
 export type ExternalDeps = Record<string, string>[];
 
@@ -11,12 +10,9 @@ interface ExternalDepsFile {
 
 export const readExternalDependencies = (path: string) =>
   pipe(
-    Effect.gen(function* () {
-      const data = yield* readFile(path);
-
-      const parsed = yaml.parse(data) as Partial<ExternalDepsFile>;
-
-      return parsed?.externaldeps ?? [];
-    }),
+    FileSystem,
+    Effect.flatMap((fs) => fs.readFileString(path)),
+    Effect.map((data) => yaml.parse(data) as Partial<ExternalDepsFile>),
+    Effect.map((parsed) => parsed?.externaldeps ?? []),
     Effect.withSpan('readExternalDependencies', { attributes: { path } }),
   );

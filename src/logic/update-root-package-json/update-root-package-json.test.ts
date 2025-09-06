@@ -1,40 +1,46 @@
+import { Effect, pipe } from 'effect';
 import { runPromise } from 'effect-errors';
-import { beforeAll, describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
+import { makeFsTestLayer } from '@tests/layers';
 import { packageJsonMockData } from '@tests/mock-data';
-import { mockFsExtra } from '@tests/mocks';
 
 describe('updateRootPackageJson function', () => {
-  const { writeJson } = mockFsExtra();
-
-  beforeAll(() => {
-    writeJson.mockResolvedValue(undefined);
-  });
-
   it('should overwrite dependencies in target package json', async () => {
     const path = './cool';
+
+    const { FsTestLayer, writeFileStringMock } = makeFsTestLayer({
+      writeFileString: Effect.void,
+    });
+
     const { updateRootPackageJson } = await import(
       './update-root-package-json.js'
     );
 
-    await runPromise(
+    const task = pipe(
       updateRootPackageJson(path, packageJsonMockData, [
         `"glob": "^10.3.0"`,
         `"yargs": "^17.7.2"`,
       ]),
+      Effect.provide(FsTestLayer),
     );
 
-    expect(writeJson).toHaveBeenCalledTimes(1);
-    expect(writeJson).toHaveBeenCalledWith(
+    await runPromise(task);
+
+    expect(writeFileStringMock).toHaveBeenCalledTimes(1);
+    expect(writeFileStringMock).toHaveBeenCalledWith(
       path,
-      {
-        ...packageJsonMockData,
-        dependencies: {
-          glob: '^10.3.0',
-          yargs: '^17.7.2',
+      JSON.stringify(
+        {
+          ...packageJsonMockData,
+          dependencies: {
+            glob: '^10.3.0',
+            yargs: '^17.7.2',
+          },
         },
-      },
-      { encoding: 'utf8', spaces: 2 },
+        null,
+        2,
+      ),
     );
   });
 });

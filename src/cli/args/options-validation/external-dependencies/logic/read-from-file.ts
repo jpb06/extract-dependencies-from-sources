@@ -1,6 +1,5 @@
+import { FileSystem } from '@effect/platform/FileSystem';
 import { Effect, pipe } from 'effect';
-
-import { pathExists } from '@effects/fs-extra.effects.js';
 
 import { failAsFileNotFound } from './fail-as-file-not-found.js';
 import { readExternalDependencies } from './read-external-dependencies.js';
@@ -8,7 +7,9 @@ import { readExternalDependencies } from './read-external-dependencies.js';
 export const readFromFile = (path: string) =>
   pipe(
     Effect.gen(function* () {
-      const configFileExists = yield* pathExists(path);
+      const fs = yield* FileSystem;
+
+      const configFileExists = yield* fs.exists(path);
       if (configFileExists) {
         return yield* readExternalDependencies(path);
       }

@@ -43,7 +43,8 @@
 			"@logic": ["./src/logic/index.ts"],
 			"@types": ["./src/types/index.ts"],
 			"@tests/mock-data": ["./src/test/mock-data/index.ts"],
-			"@tests/mocks": ["./src/test/mocks/index.ts"]
+			"@tests/mocks": ["./src/test/mocks/index.ts"],
+			"@tests/layers": ["./src/test/layers/index.ts"]
 		}
 	}
 }
