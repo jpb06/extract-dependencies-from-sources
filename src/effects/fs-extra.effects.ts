@@ -1,9 +1,9 @@
 import { Effect, pipe } from 'effect';
 import { TaggedError } from 'effect/Data';
 import {
+  exists as fsExists,
   pathExists as fsPathExists,
   readFile as fsReadFile,
-  exists as fsExists,
   readJson as fsReadJson,
   writeJson as fsWriteJson,
 } from 'fs-extra';
