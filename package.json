@@ -62,7 +62,7 @@
     "effect": "3.17.13",
     "glob": "11.0.3",
     "picocolors": "1.1.1",
-    "yaml": "2.8.0",
+    "yaml": "2.8.1",
     "yargs": "18.0.0"
   },
   "devDependencies": {
