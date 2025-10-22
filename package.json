@@ -75,7 +75,7 @@
     "@types/yargs": "17.0.33",
     "@vitest/coverage-v8": "3",
     "copyfiles": "2.4.1",
-    "del-cli": "6.0.0",
+    "del-cli": "7.0.0",
     "effect-errors": "1.10.17",
     "fs-extra": "11.3.2",
     "readme-package-icons": "1.2.2",
