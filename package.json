@@ -59,7 +59,7 @@
   "dependencies": {
     "comment-json": "4.5.1",
     "dotenv-flow": "4.1.0",
-    "effect": "3.18.4",
+    "effect": "3.19.16",
     "glob": "13.0.1",
     "picocolors": "1.1.1",
     "yaml": "2.8.2",
