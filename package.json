@@ -72,7 +72,7 @@
     "@types/dotenv-flow": "3.3.3",
     "@types/fs-extra": "11.0.4",
     "@types/node": "24.9.1",
-    "@types/yargs": "17.0.33",
+    "@types/yargs": "17.0.35",
     "@vitest/coverage-v8": "4",
     "copyfiles": "2.4.1",
     "del-cli": "7.0.0",
