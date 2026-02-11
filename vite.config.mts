@@ -1,7 +1,7 @@
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { defineConfig } from 'vitest/config';
 
-// biome-ignore lint/style/noDefaultExport: <explanation>
+// biome-ignore lint/style/noDefaultExport: vite
 export default defineConfig({
   plugins: [
     tsconfigPaths({
@@ -11,7 +11,6 @@ export default defineConfig({
   test: {
     coverage: {
       reporter: ['text', 'json', 'html', 'lcov'],
-      all: true,
       include: ['src/**/*.ts'],
       exclude: [
         '_temp/**/*',

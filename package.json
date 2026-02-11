@@ -1,88 +1,88 @@
 {
-  "name": "extract-dependencies-from-sources",
-  "description": "Inferring dependencies from the source code of a monorepo app",
-  "version": "1.2.1",
-  "main": "./cjs/index.js",
-  "module": "./esm/index.js",
-  "types": "./dts/index.d.ts",
-  "type": "module",
-  "exports": {
-    ".": {
-      "require": {
-        "types": "./dts/index.d.ts",
-        "default": "./cjs/index.js"
-      },
-      "import": {
-        "types": "./dts/index.d.ts",
-        "default": "./esm/index.js"
-      }
-    }
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jpb06/extract-dependencies-from-sources.git"
-  },
-  "author": "jpb06 <jp.bois.06@outlook.fr>",
-  "bin": {
-    "extractDeps": "/cjs/cli/index.js",
-    "extractDepsEsm": "esm/cli/index.js"
-  },
-  "engines": {
-    "node": ">=20.x"
-  },
-  "keywords": [],
-  "license": "MIT",
-  "scripts": {
-    "update-deps": "bunx npm-check-updates --root --format group -i",
-    "copy-package": "copyfiles package.json ./dist/",
-    "copy-readme": "copyfiles README.md ./dist/",
-    "build": "del-cli ./dist && bun build-esm && bun build-cjs",
-    "build-esm": "tsc --project tsconfig.esm.json",
-    "build-cjs": "tsc --project tsconfig.cjs.json",
-    "postbuild-cjs": "echo '{\"type\": \"commonjs\"}' > dist/cjs/package.json",
-    "postbuild-esm": "echo '{\"type\": \"module\"}' > dist/esm/package.json",
-    "postbuild": "bun run copy-package && bun run copy-readme && bun run resolve-ts-paths-esm --path ./dist --tsconfigPath ./tsconfig.json --debug true",
-    "check": "biome check ./src",
-    "format": "biome format --write ./src",
-    "format-ci": "biome format ./src",
-    "lint": "biome lint ./src",
-    "lint-fix": "biome lint --write ./src",
-    "type-check": "tsc -p tsconfig.type-check.json --noEmit",
-    "test": "vitest",
-    "test-ci": "vitest --coverage --run",
-    "test-dev": "vitest --coverage",
-    "test-coverage": "vitest run --coverage",
-    "precli": "bun run build",
-    "cli": "node ./dist/esm/cli/index.js --packagejson ./_temp/package.json --path _temp/front --path _temp/ng-back --externaldeps _temp/external-deps.yml",
-    "sync-icons": "bun generateReadmeIcons -h 50"
-  },
-  "dependencies": {
-    "comment-json": "4.5.1",
-    "dotenv-flow": "4.1.0",
-    "effect": "3.19.16",
-    "glob": "13.0.2",
-    "picocolors": "1.1.1",
-    "yaml": "2.8.2",
-    "yargs": "18.0.0"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "2.3.14",
-    "@commitlint/cli": "20.4.1",
-    "@commitlint/config-conventional": "20.4.1",
-    "@types/dotenv-flow": "3.3.3",
-    "@types/fs-extra": "11.0.4",
-    "@types/node": "25.2.2",
-    "@types/yargs": "17.0.35",
-    "@vitest/coverage-v8": "4",
-    "copyfiles": "2.4.1",
-    "del-cli": "7.0.0",
-    "effect-errors": "1.10.22",
-    "fs-extra": "11.3.3",
-    "readme-package-icons": "1.2.2",
-    "ts-paths-resolver": "1.3.5",
-    "typescript": "5.9.3",
-    "vite-tsconfig-paths": "6.1.0",
-    "vitest": "4",
-    "vitest-mock-extended": "3.1.0"
-  }
+	"name": "extract-dependencies-from-sources",
+	"description": "Inferring dependencies from the source code of a monorepo app",
+	"version": "1.2.1",
+	"main": "./cjs/index.js",
+	"module": "./esm/index.js",
+	"types": "./dts/index.d.ts",
+	"type": "module",
+	"exports": {
+		".": {
+			"require": {
+				"types": "./dts/index.d.ts",
+				"default": "./cjs/index.js"
+			},
+			"import": {
+				"types": "./dts/index.d.ts",
+				"default": "./esm/index.js"
+			}
+		}
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/jpb06/extract-dependencies-from-sources"
+	},
+	"author": "jpb06 <jp.bois.06@outlook.fr>",
+	"bin": {
+		"extractDeps": "/cjs/cli/index.js",
+		"extractDepsEsm": "esm/cli/index.js"
+	},
+	"engines": {
+		"node": ">=20.x"
+	},
+	"keywords": [],
+	"license": "MIT",
+	"scripts": {
+		"update-deps": "bunx npm-check-updates --root --format group -i",
+		"copy-package": "copyfiles package.json ./dist/",
+		"copy-readme": "copyfiles README.md ./dist/",
+		"build": "del-cli ./dist && bun build-esm && bun build-cjs",
+		"build-esm": "tsc --project tsconfig.esm.json",
+		"build-cjs": "tsc --project tsconfig.cjs.json",
+		"postbuild-cjs": "echo '{\"type\": \"commonjs\"}' > dist/cjs/package.json",
+		"postbuild-esm": "echo '{\"type\": \"module\"}' > dist/esm/package.json",
+		"postbuild": "bun run copy-package && bun run copy-readme && bun run resolve-ts-paths-esm --path ./dist --tsconfigPath ./tsconfig.json --debug true",
+		"check": "biome check ./src",
+		"format": "biome format --write ./src",
+		"format-ci": "biome format ./src",
+		"lint": "biome lint ./src",
+		"lint-fix": "biome lint --write ./src",
+		"type-check": "tsc -p tsconfig.type-check.json --noEmit",
+		"test": "vitest",
+		"test-ci": "vitest --coverage --run",
+		"test-dev": "vitest --coverage",
+		"test-coverage": "vitest run --coverage",
+		"precli": "bun run build",
+		"cli": "node ./dist/esm/cli/index.js --packagejson ./_temp/package.json --path _temp/front --path _temp/ng-back --externaldeps _temp/external-deps.yml",
+		"sync-icons": "bun generateReadmeIcons -h 50"
+	},
+	"dependencies": {
+		"comment-json": "4.5.1",
+		"dotenv-flow": "4.1.0",
+		"effect": "3.19.16",
+		"glob": "13.0.2",
+		"picocolors": "1.1.1",
+		"yaml": "2.8.2",
+		"yargs": "18.0.0"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.3.14",
+		"@commitlint/cli": "20.4.1",
+		"@commitlint/config-conventional": "20.4.1",
+		"@types/dotenv-flow": "3.3.3",
+		"@types/fs-extra": "11.0.4",
+		"@types/node": "25.2.3",
+		"@types/yargs": "17.0.35",
+		"@vitest/coverage-v8": "4",
+		"copyfiles": "2.4.1",
+		"del-cli": "7.0.0",
+		"effect-errors": "1.10.22",
+		"fs-extra": "11.3.3",
+		"readme-package-icons": "1.2.2",
+		"ts-paths-resolver": "1.3.5",
+		"typescript": "5.9.3",
+		"vite-tsconfig-paths": "6.1.0",
+		"vitest": "4",
+		"vitest-mock-extended": "3.1.0"
+	}
 }
