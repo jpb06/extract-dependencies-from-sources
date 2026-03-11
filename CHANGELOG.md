@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.2.3](https://github.com/jpb06/extract-dependencies-from-sources/compare/v1.2.2...v1.2.3) (2026-03-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency comment-json to v4.6.2 ([#163](https://github.com/jpb06/extract-dependencies-from-sources/issues/163)) ([6dac4b7](https://github.com/jpb06/extract-dependencies-from-sources/commit/6dac4b77a124f67d74ee490bc8a926326b2ba37e))
+* **deps:** update dependency effect to v3.19.19 ([#159](https://github.com/jpb06/extract-dependencies-from-sources/issues/159)) ([76a3030](https://github.com/jpb06/extract-dependencies-from-sources/commit/76a3030a225804904c15b422c20f301861711f39))
+* **deps:** update dependency glob to v13.0.6 ([#158](https://github.com/jpb06/extract-dependencies-from-sources/issues/158)) ([1400aba](https://github.com/jpb06/extract-dependencies-from-sources/commit/1400abaf3742979cb0cbc46b513dc464369d6ece))
+
 ## [1.2.2](https://github.com/jpb06/extract-dependencies-from-sources/compare/v1.2.1...v1.2.2) (2026-02-11)
 
 
