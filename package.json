@@ -66,7 +66,7 @@
 		"yargs": "18.0.0"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.4.6",
+		"@biomejs/biome": "2.4.7",
 		"@commitlint/cli": "20.4.3",
 		"@commitlint/config-conventional": "20.4.3",
 		"@types/dotenv-flow": "3.3.3",
